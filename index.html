@@ -14,7 +14,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
 :root{
-  --bg:#0b1020; --panel:#111a30; --card:#ffffff; --ink:#0f172a; --muted:#475569;
+  --bg:#0f172a; --panel:#111a30; --card:#ffffff; --ink:#0f172a; --muted:#475569;
   --line:#e2e8f0; --blue:#2563eb; --blue2:#1e40af; --emer:#059669; --amber:#d97706;
   --rose:#e11d48; --violet:#7c3aed; --slate:#64748b;
 }
@@ -27,8 +27,8 @@ body{margin:0;font-family:'Inter',system-ui,sans-serif;background:#f1f5f9;color:
 aside{width:290px;flex-shrink:0;background:var(--bg);color:#e2e8f0;padding:1.4rem 1rem 3rem;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:20}
 .sidebar-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.55rem;padding:0.6rem 0.7rem 0.8rem}
 .logo{width:48px;height:48px;flex:0 0 48px;border-radius:15px;background:linear-gradient(135deg,#2563eb,#1e40af);display:grid;place-items:center;font-weight:800;font-size:1.3rem;color:white;letter-spacing:-0.02em;box-shadow:0 8px 22px rgba(37,99,235,.4)}
-.sidebar-titles h1{font-size:1rem;margin:0;line-height:1.2;font-weight:700;color:#f1f5f9;letter-spacing:-0.01em}
-.sidebar-titles span{display:block;margin-top:0.15rem;font-size:0.72rem;color:#475569;white-space:nowrap}
+.sidebar-titles h1{font-size:1.08rem;margin:0;line-height:1.25;font-weight:700;color:#f1f5f9;letter-spacing:-0.01em}
+.sidebar-titles span{display:block;margin-top:0.2rem;font-size:0.75rem;color:#94a3b8;white-space:nowrap}
 .sidebar-links{display:flex;justify-content:center;gap:0.5rem;padding:0 0.7rem}
 .sidebar-links a{position:relative;width:34px;height:34px;display:grid;place-items:center;border-radius:9px;color:#cbd5e1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);transition:color 0.15s,background 0.15s,transform 0.15s,border-color 0.15s}
 .sidebar-links a:hover{color:#fff;background:linear-gradient(135deg,#2563eb,#1e40af);border-color:transparent;transform:translateY(-2px)}
@@ -38,8 +38,9 @@ aside{width:290px;flex-shrink:0;background:var(--bg);color:#e2e8f0;padding:1.4re
 .sidebar-links a:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
 .sidebar-links a:hover::before{opacity:1}
 .sidebar-sep{height:1px;background:rgba(255,255,255,0.08);margin:1rem 0.7rem 0.6rem}
-nav{padding:0.5rem 0;display:flex;flex-direction:column;gap:0.25rem}
-nav .grp{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:#475569;padding:0.9rem 0.7rem 0.35rem}
+nav{padding:0.5rem 0;display:flex;flex-direction:column;gap:0.12rem}
+nav .grp{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;padding:1rem 0.7rem 0.3rem;margin-top:0.2rem}
+nav .grp:first-child{margin-top:0}
 nav a{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0.7rem;border-radius:10px;color:#cbd5e1;text-decoration:none;font-size:0.9rem;cursor:pointer;transition:background 0.15s,color 0.15s}
 nav a:hover{background:rgba(255,255,255,0.06);color:white}
 nav a.active{background:linear-gradient(135deg,#2563eb,#1e40af);color:white;font-weight:600}
@@ -164,7 +165,7 @@ input[type=range]{width:100%}
     <div class="logo">BDD</div>
     <div class="sidebar-titles">
       <h1>Bases de Datos</h1>
-      <span>Guía interactiva · UTN.BA</span>
+      <span>Resumen teórico · UTN.BA</span>
     </div>
   </div>
   <div class="sidebar-links">
@@ -175,7 +176,7 @@ input[type=range]{width:100%}
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
     </a>
     <a href="https://discord.gg/7S3uZXYrE7" target="_blank" rel="noopener" data-tip="Discord" aria-label="Discord">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.491c-1.923-.915-3.971-1.499-6.016-1.751a.058.058 0 0 0-.063.029c-.262.467-.567 1.076-.776 1.554a18.594 18.594 0 0 0-5.487 0c-.209-.478-.516-1.087-.779-1.554a.059.059 0 0 0-.063-.029c-2.044.252-4.093.836-6.016 1.751a.058.058 0 0 0-.027.043c-.874 13.056 3.887 25.384 10.777 27.747a.058.058 0 0 0 .064-.029c.573-.994 1.082-2.043 1.517-3.119a.059.059 0 0 0-.033-.082 18.052 18.052 0 0 1-2.578-1.232.059.059 0 0 1-.006-.099c.173-.124.346-.253.514-.383a.058.058 0 0 1 .061-.008c5.411 2.471 11.27 2.471 16.604 0a.058.058 0 0 1 .061.007c.168.13.341.259.514.383a.059.059 0 0 1-.006.099 17.939 17.939 0 0 1-2.578 1.232.059.059 0 0 0-.033.082c.435 1.076.944 2.125 1.517 3.119a.058.058 0 0 0 .064.029c6.891-2.363 11.651-14.687 10.777-27.747a.058.058 0 0 0-.027-.043M8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.974-2.419 2.157-2.419 1.183 0 2.157 1.086 2.157 2.419 0 1.334-.974 2.419-2.157 2.419m7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.974-2.419 2.157-2.419 1.183 0 2.157 1.086 2.157 2.419 0 1.334-.974 2.419-2.157 2.419"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
     </a>
     <a href="https://planutn.dhem.tech/" target="_blank" rel="noopener" data-tip="Ver plan de estudio" aria-label="Plan de estudio">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>

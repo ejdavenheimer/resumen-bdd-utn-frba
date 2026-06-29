@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
 :root{
-  --bg:#0b1020; --panel:#111a30; --card:#ffffff; --ink:#0f172a; --muted:#475569;
+  --bg:#0f172a; --panel:#111a30; --card:#ffffff; --ink:#0f172a; --muted:#475569;
   --line:#e2e8f0; --blue:#2563eb; --blue2:#1e40af; --emer:#059669; --amber:#d97706;
   --rose:#e11d48; --violet:#7c3aed; --slate:#64748b;
 }
@@ -14,8 +14,8 @@ aside{width:290px;background:var(--bg);color:#e2e8f0;padding:1.4rem 1rem 3rem;po
 
 .sidebar-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.55rem;padding:0.6rem 0.7rem 0.8rem}
 .logo{width:48px;height:48px;flex:0 0 48px;border-radius:15px;background:linear-gradient(135deg,#2563eb,#1e40af);display:grid;place-items:center;font-weight:800;font-size:1.3rem;color:white;letter-spacing:-0.02em;box-shadow:0 8px 22px rgba(37,99,235,.4)}
-.sidebar-titles h1{font-size:1rem;margin:0;line-height:1.2;font-weight:700;color:#f1f5f9;letter-spacing:-0.01em}
-.sidebar-titles span{display:block;margin-top:0.15rem;font-size:0.72rem;color:#475569;white-space:nowrap}
+.sidebar-titles h1{font-size:1.08rem;margin:0;line-height:1.25;font-weight:700;color:#f1f5f9;letter-spacing:-0.01em}
+.sidebar-titles span{display:block;margin-top:0.2rem;font-size:0.75rem;color:#94a3b8;white-space:nowrap}
 
 .sidebar-links{display:flex;justify-content:center;gap:0.5rem;padding:0 0.7rem}
 .sidebar-links a{position:relative;width:34px;height:34px;display:grid;place-items:center;border-radius:9px;color:#cbd5e1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);transition:color 0.15s,background 0.15s,transform 0.15s,border-color 0.15s}
@@ -28,8 +28,9 @@ aside{width:290px;background:var(--bg);color:#e2e8f0;padding:1.4rem 1rem 3rem;po
 
 .sidebar-sep{height:1px;background:rgba(255,255,255,0.08);margin:1rem 0.7rem 0.6rem}
 
-nav{padding:0.5rem 0;display:flex;flex-direction:column;gap:0.25rem}
-nav .grp{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:#475569;padding:0.9rem 0.7rem 0.35rem}
+nav{padding:0.5rem 0;display:flex;flex-direction:column;gap:0.12rem}
+nav .grp{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;padding:1rem 0.7rem 0.3rem;margin-top:0.2rem}
+nav .grp:first-child{margin-top:0}
 nav a{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0.7rem;border-radius:10px;color:#cbd5e1;text-decoration:none;font-size:0.9rem;cursor:pointer;transition:background 0.15s,color 0.15s}
 nav a:hover{background:rgba(255,255,255,0.06);color:white}
 nav a.active{background:linear-gradient(135deg,#2563eb,#1e40af);color:white;font-weight:600}

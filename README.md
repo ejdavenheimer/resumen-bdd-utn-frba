@@ -1,4 +1,4 @@
-# Bases de Datos · Resumen interactivo (UTN.BA)
+# Bases de Datos · Resumen teórico (UTN.BA)
 
 Resumen interactivo de **Bases de Datos (GDD)** de UTN.BA: estructuras de datos,
 acceso a datos y teoría de bases de datos, con diagramas y visualizaciones animadas
