@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bases de Datos · Resumen (UTN.BA)</title>
+<meta name="description" content="Resumen interactivo de Bases de Datos (GDD) — UTN.BA." />
+<meta name="author" content="ejdavenheimer" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#2563eb" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="favicon.svg" />
+<link rel="stylesheet" href="styles.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+:root{
+  --bg:#0b1020; --panel:#111a30; --card:#ffffff; --ink:#0f172a; --muted:#475569;
+  --line:#e2e8f0; --blue:#2563eb; --blue2:#1e40af; --emer:#059669; --amber:#d97706;
+  --rose:#e11d48; --violet:#7c3aed; --slate:#64748b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;background:#f1f5f9;color:var(--ink);display:flex;height:100vh;overflow:hidden}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* Sidebar */
+aside{width:290px;flex-shrink:0;background:var(--bg);color:#e2e8f0;padding:1.4rem 1rem 3rem;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:20}
+.sidebar-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.55rem;padding:0.6rem 0.7rem 0.8rem}
+.logo{width:48px;height:48px;flex:0 0 48px;border-radius:15px;background:linear-gradient(135deg,#2563eb,#1e40af);display:grid;place-items:center;font-weight:800;font-size:1.3rem;color:white;letter-spacing:-0.02em;box-shadow:0 8px 22px rgba(37,99,235,.4)}
+.sidebar-titles h1{font-size:1rem;margin:0;line-height:1.2;font-weight:700;color:#f1f5f9;letter-spacing:-0.01em}
+.sidebar-titles span{display:block;margin-top:0.15rem;font-size:0.72rem;color:#475569;white-space:nowrap}
+.sidebar-links{display:flex;justify-content:center;gap:0.5rem;padding:0 0.7rem}
+.sidebar-links a{position:relative;width:34px;height:34px;display:grid;place-items:center;border-radius:9px;color:#cbd5e1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);transition:color 0.15s,background 0.15s,transform 0.15s,border-color 0.15s}
+.sidebar-links a:hover{color:#fff;background:linear-gradient(135deg,#2563eb,#1e40af);border-color:transparent;transform:translateY(-2px)}
+.sidebar-links svg{width:16px;height:16px;fill:currentColor}
+.sidebar-links a::after{content:attr(data-tip);position:absolute;top:calc(100% + 9px);left:50%;transform:translateX(-50%) translateY(-4px);background:#1e293b;color:#f1f5f9;border:1px solid rgba(255,255,255,0.1);padding:0.3rem 0.55rem;border-radius:7px;font-size:0.72rem;font-weight:500;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.15s ease,transform 0.15s ease;z-index:30;box-shadow:0 6px 18px rgba(0,0,0,0.45)}
+.sidebar-links a::before{content:"";position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-bottom-color:#1e293b;opacity:0;pointer-events:none;transition:opacity 0.15s ease;z-index:30}
+.sidebar-links a:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
+.sidebar-links a:hover::before{opacity:1}
+.sidebar-sep{height:1px;background:rgba(255,255,255,0.08);margin:1rem 0.7rem 0.6rem}
+nav{padding:0.5rem 0;display:flex;flex-direction:column;gap:0.25rem}
+nav .grp{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:#475569;padding:0.9rem 0.7rem 0.35rem}
+nav a{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0.7rem;border-radius:10px;color:#cbd5e1;text-decoration:none;font-size:0.9rem;cursor:pointer;transition:background 0.15s,color 0.15s}
+nav a:hover{background:rgba(255,255,255,0.06);color:white}
+nav a.active{background:linear-gradient(135deg,#2563eb,#1e40af);color:white;font-weight:600}
+
+/* Main */
+main{flex:1;overflow-y:auto;padding:34px 40px 120px;scroll-padding-top:20px}
+.wrap{max-width:1080px;margin:0 auto}
+section{margin-bottom:64px;scroll-margin-top:20px}
+.utitle{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.unum{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#1e40af);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;flex-shrink:0;box-shadow:0 6px 18px rgba(37,99,235,.35)}
+h2.sec{font-size:30px;font-weight:800;color:#0f172a;margin:0}
+.lead{color:var(--muted);font-size:15px;margin:6px 0 22px;max-width:760px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:22px;box-shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px -12px rgba(15,23,42,.12)}
+.card h3{margin:0 0 6px;font-size:19px;font-weight:800;color:#1e293b;display:flex;align-items:center;gap:9px}
+.card h3 .dot{width:9px;height:9px;border-radius:50%;background:var(--blue)}
+.card h4{margin:18px 0 8px;font-size:15px;font-weight:700;color:#334155}
+.card p,.card li{font-size:14px;line-height:1.65;color:#334155}
+.card p{margin:8px 0}
+ul.tt{margin:8px 0;padding-left:4px;list-style:none}
+ul.tt li{position:relative;padding:4px 0 4px 22px}
+ul.tt li:before{content:"";position:absolute;left:4px;top:11px;width:7px;height:7px;border-radius:2px;background:var(--blue)}
+.k{font-weight:700;color:#1e293b}
+.hl{background:#fef3c7;padding:0 4px;border-radius:4px;font-weight:600}
+em{color:#1e40af;font-style:normal;font-weight:600}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+
+.note{border-left:4px solid var(--blue);background:#eff6ff;padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;font-size:13.5px}
+.note.g{border-color:var(--emer);background:#ecfdf5}
+.note.a{border-color:var(--amber);background:#fffbeb}
+.note.r{border-color:var(--rose);background:#fff1f2}
+.note .t{font-weight:800;display:block;margin-bottom:2px;color:#1e293b}
+
+.stage{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px;margin:14px 0}
+.stage svg{display:block;width:100%;height:auto}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+button.b{padding:8px 14px;border-radius:9px;font-size:13px;font-weight:700;border:none;cursor:pointer;color:#fff;transition:.15s;display:inline-flex;align-items:center;gap:6px}
+button.b:active{transform:translateY(1px)}
+.b-blue{background:var(--blue)} .b-blue:hover{background:#1d4ed8}
+.b-emer{background:var(--emer)} .b-emer:hover{background:#047857}
+.b-amber{background:var(--amber)} .b-amber:hover{background:#b45309}
+.b-rose{background:var(--rose)} .b-rose:hover{background:#be123c}
+.b-slate{background:var(--slate)} .b-slate:hover{background:#475569}
+.b-ghost{background:#e2e8f0;color:#334155} .b-ghost:hover{background:#cbd5e1}
+button.b:disabled{opacity:.4;cursor:not-allowed}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:700;background:#e2e8f0;color:#334155;border:none;cursor:pointer}
+.chip.on{background:var(--blue);color:#fff}
+
+.status{font-size:13px;color:#334155;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;margin-top:10px;min-height:20px;line-height:1.5}
+.status b{color:#1e40af}
+
+/* data structure boxes */
+.dsrow{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-end;min-height:60px}
+.cell{min-width:46px;height:46px;border:2px solid #94a3b8;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;background:#fff;font-family:'JetBrains Mono',monospace;transition:.2s}
+.cell.idx{font-size:11px;color:#94a3b8;border:none;height:18px;min-width:46px}
+.cell.cur{border-color:var(--amber);background:#fef3c7;transform:translateY(-6px)}
+.cell.cmp{border-color:var(--blue);background:#dbeafe}
+.cell.sorted{border-color:var(--emer);background:#d1fae5}
+.cell.piv{border-color:var(--violet);background:#ede9fe}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+table.tbl th,table.tbl td{border:1px solid #cbd5e1;padding:7px 9px;text-align:center}
+table.tbl th{background:#1e293b;color:#fff;font-weight:700}
+table.tbl td.hl{background:#fef3c7}
+table.tbl tr:nth-child(even) td{background:#f8fafc}
+table.tbl tr:nth-child(even) td.hl{background:#fef3c7}
+
+code.inline{background:#1e293b;color:#a5f3fc;padding:2px 6px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:12.5px}
+pre.code{background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.55;overflow-x:auto;margin:12px 0}
+pre.code .c{color:#64748b}
+.qa{border:1px solid #e2e8f0;border-radius:10px;margin:8px 0;overflow:hidden}
+.qa summary{cursor:pointer;padding:12px 16px;font-weight:700;font-size:13.5px;background:#f8fafc;color:#1e293b;list-style:none}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary:before{content:"▸ ";color:var(--blue)}
+.qa[open] summary:before{content:"▾ "}
+.qa .ans{padding:6px 16px 14px;font-size:13.5px;color:#334155}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#475569;margin-top:8px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:13px;height:13px;border-radius:4px;display:inline-block}
+.qbox{background:#f0f9ff;border:1px solid #bae6fd;border-radius:14px;padding:18px 22px}
+.qbox h3{color:#075985}
+.slbl{font-size:13px;font-weight:700;color:#334155;display:flex;justify-content:space-between}
+input[type=range]{width:100%}
+.fl0{opacity:.32;filter:grayscale(.6)}
+
+/* Shell: accesibilidad, barra de progreso y topbar móvil */
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--blue);color:#fff;padding:.7rem 1.1rem;border-radius:0 0 10px 0;font-weight:600;z-index:200;text-decoration:none}
+.skip-link:focus{left:0}
+:focus-visible{outline:3px solid rgba(37,99,235,.55);outline-offset:2px}
+.progress-top{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--blue2));z-index:100;transition:width .1s;width:0}
+.topbar{display:none}
+.backdrop{display:none}
+@media(max-width:900px){
+  .topbar{display:flex;align-items:center;gap:.8rem;position:fixed;top:0;left:0;right:0;z-index:40;background:var(--bg);color:#fff;padding:.7rem 1rem}
+  .topbar .menu-btn{background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1.3rem;border-radius:8px;width:40px;height:40px;cursor:pointer;flex:0 0 40px}
+  .topbar strong{font-size:1rem;font-weight:700}
+  aside{position:fixed;z-index:50;width:280px;left:-300px;top:0;height:100vh;transition:left .25s;box-shadow:0 0 40px rgba(0,0,0,.4)}
+  aside.open{left:0}
+  main{padding-top:74px}
+  .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:45;display:none}
+  .backdrop.show{display:block}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<div class="progress-top" id="progressTop"></div>
+
+<div class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="sidebar">☰</button>
+  <strong>Bases de Datos</strong>
+</div>
+
+<div class="backdrop" id="backdrop"></div>
+
+<aside id="sidebar" aria-label="Navegación principal">
+  <div class="sidebar-head">
+    <div class="logo">BDD</div>
+    <div class="sidebar-titles">
+      <h1>Bases de Datos</h1>
+      <span>Guía interactiva · UTN.BA</span>
+    </div>
+  </div>
+  <div class="sidebar-links">
+    <a href="https://www.linkedin.com/in/ejdavenheimer/" target="_blank" rel="noopener" data-tip="LinkedIn" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <a href="https://github.com/ejdavenheimer/resumen-bdd-utn-frba" target="_blank" rel="noopener" data-tip="Ver el código" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a>
+    <a href="https://discord.gg/7S3uZXYrE7" target="_blank" rel="noopener" data-tip="Discord" aria-label="Discord">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.491c-1.923-.915-3.971-1.499-6.016-1.751a.058.058 0 0 0-.063.029c-.262.467-.567 1.076-.776 1.554a18.594 18.594 0 0 0-5.487 0c-.209-.478-.516-1.087-.779-1.554a.059.059 0 0 0-.063-.029c-2.044.252-4.093.836-6.016 1.751a.058.058 0 0 0-.027.043c-.874 13.056 3.887 25.384 10.777 27.747a.058.058 0 0 0 .064-.029c.573-.994 1.082-2.043 1.517-3.119a.059.059 0 0 0-.033-.082 18.052 18.052 0 0 1-2.578-1.232.059.059 0 0 1-.006-.099c.173-.124.346-.253.514-.383a.058.058 0 0 1 .061-.008c5.411 2.471 11.27 2.471 16.604 0a.058.058 0 0 1 .061.007c.168.13.341.259.514.383a.059.059 0 0 1-.006.099 17.939 17.939 0 0 1-2.578 1.232.059.059 0 0 0-.033.082c.435 1.076.944 2.125 1.517 3.119a.058.058 0 0 0 .064.029c6.891-2.363 11.651-14.687 10.777-27.747a.058.058 0 0 0-.027-.043M8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.974-2.419 2.157-2.419 1.183 0 2.157 1.086 2.157 2.419 0 1.334-.974 2.419-2.157 2.419m7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.974-2.419 2.157-2.419 1.183 0 2.157 1.086 2.157 2.419 0 1.334-.974 2.419-2.157 2.419"/></svg>
+    </a>
+    <a href="https://planutn.dhem.tech/" target="_blank" rel="noopener" data-tip="Ver plan de estudio" aria-label="Plan de estudio">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+    </a>
+  </div>
+  <div class="sidebar-sep"></div>
+  <nav id="nav">
+    <span class="grp">Estructuras</span>
+    <a href="#u1">1 · Grafos</a>
+    <a href="#u2">2 · Estructuras de Datos</a>
+    <a href="#u3">3 · Árboles</a>
+    <a href="#u4">4 · Árboles de Búsqueda</a>
+    <a href="#u5">5 · Compresión (Huffman)</a>
+    <a href="#u6">6 · Métodos de Ordenamiento</a>
+    <span class="grp">Acceso a datos</span>
+    <a href="#u7">7 · Hashing</a>
+    <a href="#u8">8 · Árbol B y B+</a>
+    <span class="grp">Bases de datos</span>
+    <a href="#u9">9 · Teoría de BD</a>
+    <a href="#u10">10 · Objetos de BD</a>
+    <a href="#u11">11 · Data Warehouse</a>
+    <span class="grp">★ Examen</span>
+    <a href="#u12" style="color:#fbbf24">Repaso para el parcial</a>
+  </nav>
+</aside>
+<main id="main">
+<div class="wrap">
+
+<!-- ================= UNIDAD 1 ================= -->
+<section id="u1">
+  <div class="utitle"><div class="unum">1</div><h2 class="sec">Grafos</h2></div>
+  <p class="lead">Un grafo modela un problema como un conjunto de elementos (vértices) y relaciones entre ellos (aristas). Es una estructura abstracta: para usarla hay que representarla en memoria.</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>Concepto y grado</h3>
+    <p><span class="k">Definición:</span> un grafo se define como <span class="hl mono">G = (V, A)</span>, donde <b>V</b> es el conjunto de vértices/nodos y <b>A</b> el conjunto de aristas (relaciones entre vértices).</p>
+    <div class="grid2" style="margin-bottom:6px">
+      <div class="stage" style="text-align:center">
+        <svg viewBox="0 0 240 110" style="max-width:240px">
+          <circle cx="120" cy="48" r="30" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+          <text x="120" y="53" text-anchor="middle" font-size="22" font-weight="800" fill="#1e3a8a">42</text>
+          <text x="120" y="98" text-anchor="middle" font-size="12" fill="#475569" font-weight="700">Nodo SIMPLE = un único valor</text>
+        </svg>
+      </div>
+      <div class="stage" style="text-align:center">
+        <svg viewBox="0 0 240 110" style="max-width:240px">
+          <rect x="60" y="12" width="120" height="76" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+          <rect x="60" y="12" width="120" height="20" rx="8" fill="#16a34a"/>
+          <text x="120" y="23" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">ALUMNO (id 42)</text>
+          <text x="70" y="46" font-size="10.5" fill="#166534">Nombre: Ana</text>
+          <text x="70" y="62" font-size="10.5" fill="#166534">Edad: 20</text>
+          <text x="70" y="78" font-size="10.5" fill="#166534">Promedio: 8,5</text>
+          <text x="120" y="103" text-anchor="middle" font-size="12" fill="#475569" font-weight="700">Nodo COMPUESTO = varios valores</text>
+        </svg>
+      </div>
+    </div>
+    <div class="grid2">
+      <div>
+        <h4>Nodos simples y compuestos</h4>
+        <ul class="tt">
+          <li><span class="k">Nodo simple:</span> contiene un único valor.</li>
+          <li><span class="k">Nodo compuesto:</span> un conjunto de valores que caracteriza al nodo (forma una estructura de datos en sí mismo).</li>
+        </ul>
+        <h4>Grado de los nodos</h4>
+        <p>Cantidad de aristas que afectan a un nodo. En grafos dirigidos:</p>
+        <ul class="tt">
+          <li><span class="k">Grado positivo:</span> aristas que <b>salen</b> del nodo.</li>
+          <li><span class="k">Grado negativo:</span> aristas que <b>llegan</b> al nodo.</li>
+        </ul>
+        <div class="note">Hacé <b>clic en un nodo</b> del grafo para ver sus aristas entrantes (rojo) y salientes (verde) y su grado.</div>
+      </div>
+      <div class="stage"><div id="grado-svg"></div><div class="status" id="grado-st">Clic en un nodo…</div>
+        <div class="legend"><span><i style="background:#22c55e"></i>Salen (grado +)</span><span><i style="background:#ef4444"></i>Llegan (grado −)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Caracterización de grafos</h3>
+    <p>Los grafos se diferencian por las características de sus arcos. Elegí un tipo:</p>
+    <div class="toolbar" id="carac-chips"></div>
+    <div class="grid2">
+      <div class="stage"><div id="carac-svg"></div></div>
+      <div><h4 id="carac-name"></h4><p id="carac-desc"></p>
+        <div class="note g" id="carac-extra"></div>
+        <div id="carac-conexo" style="display:none">
+          <button class="b b-emer" id="flood-btn">▶ Propagar desde A (alcanzables)</button>
+          <button class="b b-ghost" id="flood-reset">Reset</button>
+          <div class="status" id="flood-st">En un grafo <b>conexo</b> partiendo de cualquier nodo se alcanzan todos. En uno <b>no conexo</b>, un grupo queda aislado.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Clasificación según la dirección</h3>
+    <div class="grid2">
+      <div class="stage" style="text-align:center">
+        <svg viewBox="0 0 260 140" style="max-width:280px">
+          <defs><marker id="cd-a" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2563eb"/></marker></defs>
+          <line x1="58" y1="55" x2="122" y2="55" stroke="#2563eb" stroke-width="2.5" marker-end="url(#cd-a)"/>
+          <line x1="150" y1="70" x2="118" y2="98" stroke="#2563eb" stroke-width="2.5" marker-end="url(#cd-a)"/>
+          <circle cx="45" cy="55" r="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="45" y="60" text-anchor="middle" font-size="13" font-weight="800" fill="#1e3a8a">a</text>
+          <circle cx="145" cy="55" r="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="145" y="60" text-anchor="middle" font-size="13" font-weight="800" fill="#1e3a8a">b</text>
+          <circle cx="105" cy="110" r="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="105" y="115" text-anchor="middle" font-size="13" font-weight="800" fill="#1e3a8a">c</text>
+          <text x="130" y="138" text-anchor="middle" font-size="12" font-weight="800" fill="#1e40af">DIRIGIDO (con flechas)</text>
+        </svg>
+        <p style="font-size:12.5px;margin:4px 0 0"><span class="k">Dirigidos:</span> la arista tiene sentido (origen→destino). Modelan jerarquías: "ser padre de", "ser mayor que".</p>
+      </div>
+      <div class="stage" style="text-align:center">
+        <svg viewBox="0 0 260 140" style="max-width:280px">
+          <line x1="58" y1="55" x2="132" y2="55" stroke="#16a34a" stroke-width="2.5"/>
+          <line x1="138" y1="70" x2="112" y2="96" stroke="#16a34a" stroke-width="2.5"/>
+          <circle cx="45" cy="55" r="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="45" y="60" text-anchor="middle" font-size="13" font-weight="800" fill="#166534">a</text>
+          <circle cx="145" cy="55" r="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="145" y="60" text-anchor="middle" font-size="13" font-weight="800" fill="#166534">b</text>
+          <circle cx="105" cy="110" r="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="105" y="115" text-anchor="middle" font-size="13" font-weight="800" fill="#166534">c</text>
+          <text x="130" y="138" text-anchor="middle" font-size="12" font-weight="800" fill="#166534">NO DIRIGIDO (sin flechas)</text>
+        </svg>
+        <p style="font-size:12.5px;margin:4px 0 0"><span class="k">No dirigidos:</span> sin sentido, bidireccionales. Modelan relaciones simétricas: "ser hermano de", "ser igual a".</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Clasificación según restricciones</h3>
+    <p>Un grafo <span class="k">restricto</span> modela una relación que <b>NO</b> cumple ninguna de estas 3 propiedades (es "anti-equivalente"). Si las cumpliera todas sería de equivalencia. El <span class="k">irrestricto</span> puede tenerlas y por eso es más difícil de administrar (aparecen ciclos).</p>
+    <div class="grid3">
+      <div class="stage" style="text-align:center">
+        <svg viewBox="0 0 160 110" style="max-width:170px">
+          <defs><marker id="rf-a" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e11d48"/></marker></defs>
+          <path d="M62,32 C28,2 28,62 62,42" fill="none" stroke="#e11d48" stroke-width="2.5" marker-end="url(#rf-a)"/>
+          <circle cx="80" cy="48" r="20" fill="#fff1f2" stroke="#e11d48" stroke-width="2"/><text x="80" y="53" text-anchor="middle" font-size="14" font-weight="800" fill="#9f1239">a</text>
+          <text x="80" y="92" text-anchor="middle" font-size="12" font-weight="800" fill="#9f1239">Reflexividad</text>
+          <text x="80" y="106" text-anchor="middle" font-size="10.5" fill="#64748b">(bucle a→a)</text>
+        </svg>
+      </div>
+      <div class="stage" style="text-align:center">
+        <svg viewBox="0 0 160 110" style="max-width:170px">
+          <defs><marker id="sm-a" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e11d48"/></marker></defs>
+          <path d="M48,40 C75,22 95,22 112,40" fill="none" stroke="#e11d48" stroke-width="2.5" marker-end="url(#sm-a)"/>
+          <path d="M112,58 C85,76 65,76 48,58" fill="none" stroke="#e11d48" stroke-width="2.5" marker-end="url(#sm-a)"/>
+          <circle cx="40" cy="49" r="18" fill="#fff1f2" stroke="#e11d48" stroke-width="2"/><text x="40" y="54" text-anchor="middle" font-size="13" font-weight="800" fill="#9f1239">a</text>
+          <circle cx="120" cy="49" r="18" fill="#fff1f2" stroke="#e11d48" stroke-width="2"/><text x="120" y="54" text-anchor="middle" font-size="13" font-weight="800" fill="#9f1239">b</text>
+          <text x="80" y="95" text-anchor="middle" font-size="12" font-weight="800" fill="#9f1239">Simetría</text>
+          <text x="80" y="108" text-anchor="middle" font-size="10.5" fill="#64748b">(a↔b, ida y vuelta)</text>
+        </svg>
+      </div>
+      <div class="stage" style="text-align:center">
+        <svg viewBox="0 0 160 110" style="max-width:170px">
+          <defs><marker id="tr-a" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e11d48"/></marker></defs>
+          <line x1="42" y1="36" x2="98" y2="36" stroke="#e11d48" stroke-width="2.5" marker-end="url(#tr-a)"/>
+          <line x1="108" y1="50" x2="84" y2="78" stroke="#e11d48" stroke-width="2.5" marker-end="url(#tr-a)"/>
+          <line x1="62" y1="78" x2="38" y2="50" stroke="#e11d48" stroke-width="2.5" marker-end="url(#tr-a)"/>
+          <circle cx="32" cy="34" r="15" fill="#fff1f2" stroke="#e11d48" stroke-width="2"/><text x="32" y="39" text-anchor="middle" font-size="12" font-weight="800" fill="#9f1239">a</text>
+          <circle cx="115" cy="38" r="15" fill="#fff1f2" stroke="#e11d48" stroke-width="2"/><text x="115" y="43" text-anchor="middle" font-size="12" font-weight="800" fill="#9f1239">b</text>
+          <circle cx="73" cy="86" r="15" fill="#fff1f2" stroke="#e11d48" stroke-width="2"/><text x="73" y="91" text-anchor="middle" font-size="12" font-weight="800" fill="#9f1239">c</text>
+          <text x="80" y="108" text-anchor="middle" font-size="12" font-weight="800" fill="#9f1239">Transitividad</text>
+        </svg>
+      </div>
+    </div>
+    <div class="note r"><span class="t">Restricto = sin ninguna de las 3</span>Garantiza que no haya bucles ni ciclos simples → más fácil de administrar. <b>Es la base de las estructuras de datos</b> (pilas, colas, listas, árboles).</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Caminos, pasos y ciclos</h3>
+    <p>Sobre el mismo grafo dirigido, mirá la diferencia (el trazo grueso marca el recorrido):</p>
+    <div class="grid3">
+      <div class="stage" style="text-align:center">
+        <div id="cpc-camino"></div>
+        <p style="font-size:12px;margin:2px 0 0"><span class="k">Camino a–c:</span> va por <b>a–d–c</b> usando los arcos <b>al revés</b> (d→a y c→d). Igual hay vínculo: <b>el sentido no importa</b>.</p>
+      </div>
+      <div class="stage" style="text-align:center">
+        <div id="cpc-paso"></div>
+        <p style="font-size:12px;margin:2px 0 0"><span class="k">Paso a→c:</span> respeta el sentido de las flechas (sólo en dirigidos).</p>
+      </div>
+      <div class="stage" style="text-align:center">
+        <div id="cpc-ciclo"></div>
+        <p style="font-size:12px;margin:2px 0 0"><span class="k">Ciclo:</span> el recorrido vuelve al nodo de partida (origen = destino).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Representación ESTÁTICA</h3>
+    <p>Espacio fijo que contempla <b>todas</b> las relaciones posibles, existan o no. Se construye sobre estructuras rígidas (matrices). Acceso directo → rápida. Conviene para grafos <b>pequeños o densos</b>.</p>
+    <div class="grid2">
+      <div>
+        <h4>Matriz de adyacencia</h4>
+        <p>Matriz cuadrada n×n. <span class="k">Fila = origen, columna = destino.</span> La celda guarda cuántas aristas van de uno a otro (los bucles valen <span class="hl">2</span> en no dirigidos).</p>
+        <div class="stage"><div id="ady-graph"></div></div>
+        <p style="font-size:12.5px;color:#64748b">Pasá el mouse por una <b>arista</b> → se ilumina su celda.</p>
+        <div id="ady-matrix"></div>
+      </div>
+      <div>
+        <h4>Matriz de incidencia</h4>
+        <p>Filas = nodos, columnas = aristas. En el nodo <span class="k">origen</span> va <b>1</b>, en el <span class="k">destino</span> va <b>2</b>; un bucle vale <b>3</b>.</p>
+        <div id="inc-matrix"></div>
+        <div class="note a"><span class="t">Limitación</span>Las matrices no permiten guardar <b>atributos</b> en las relaciones.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Representación DINÁMICA</h3>
+    <p>El espacio cambia con el grafo (altas/bajas). Usa <b>punteros</b> para enlazar vértices y arcos. Conviene para grafos <b>grandes, dispersos o que cambian mucho</b>.</p>
+    <div class="note"><span class="t">Grafo de ejemplo (el mismo en las 3 pestañas)</span>3 nodos y 3 arcos: <b>a→b</b> (arco 1), <b>a→c</b> (arco 2) y <b>b→c</b> (arco 3).</div>
+    <div class="grid2" style="align-items:start">
+      <div class="stage" style="text-align:center"><div id="din-ref"></div><div style="font-size:12px;color:#64748b;font-weight:700">↑ Grafo a representar</div></div>
+      <div>
+        <div class="toolbar" id="din-chips"></div>
+        <div class="status" id="din-st" style="margin-top:0"></div>
+      </div>
+    </div>
+    <div class="stage"><div id="din-svg"></div></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Recorridos: Búsqueda en PROFUNDIDAD (Depth First)</h3>
+    <p>Avanza por una rama hasta no poder más; ahí <b>retrocede</b> (backtracking) y prueba otra. Es <b>recursiva</b> → se apoya en una <b>PILA</b>. Encuentra <em>un</em> camino, no necesariamente el más corto. Para evitar ciclos infinitos marca los nodos ya visitados.</p>
+    <div class="note">Buscamos un <b>paso de A → G</b>. Fijate cómo <b>se hunde por una rama</b> (A→B→D), no encuentra salida en D, <b style="color:#dc2626">retrocede</b> y prueba E, llegando a G. La pila crece al bajar y se desapila al retroceder.</div>
+    <div class="grid2">
+      <div class="stage"><div id="dfs-svg"></div></div>
+      <div>
+        <h4>Pila de procesos (LIFO)</h4>
+        <div id="dfs-stack" class="dsrow" style="flex-direction:column-reverse;align-items:flex-start;min-height:120px"></div>
+        <div class="toolbar" style="margin-top:12px">
+          <button class="b b-blue" id="dfs-step">▶ Paso</button>
+          <button class="b b-emer" id="dfs-play">⏩ Auto</button>
+          <button class="b b-ghost" id="dfs-reset">↺ Reset</button>
+        </div>
+        <div class="status" id="dfs-st">Listo. Iniciamos en <b>A</b> buscando <b>G</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Recorridos: Búsqueda en ANCHURA (Breadth First)</h3>
+    <p>Evalúa <b>primero todos los vecinos directos</b>, luego los de nivel 2, etc. <b>No retrocede</b>: usa una <b>COLA</b> (FIFO) para guardar el orden de visita. Como recorre por niveles, el paso que encuentra es el <b>más corto</b> (en cantidad de arcos).</p>
+    <div class="note g">Con el mismo grafo A→G, fijate que BFS visita <b>A</b> → después todo el nivel 1 (<b>B, C</b>) → después el nivel 2 (<b>D, E, F</b>) → y recién ahí <b>G</b>. Avanza "por capas", no se hunde por una rama como DFS.</div>
+    <div class="grid2">
+      <div class="stage"><div id="bfs-svg"></div></div>
+      <div>
+        <h4>Cola de nodos a procesar (FIFO)</h4>
+        <div id="bfs-queue" class="dsrow" style="min-height:60px"></div>
+        <p style="font-size:12px;color:#64748b">⬅ sale (primero en entrar) &nbsp;·&nbsp; entra ➡</p>
+        <div class="toolbar">
+          <button class="b b-blue" id="bfs-step">▶ Paso</button>
+          <button class="b b-emer" id="bfs-play">⏩ Auto</button>
+          <button class="b b-ghost" id="bfs-reset">↺ Reset</button>
+        </div>
+        <div class="status" id="bfs-st">Listo. Iniciamos en <b>A</b> buscando <b>G</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Caminos mínimos: Dijkstra y Floyd-Warshall</h3>
+    <p>Cuando las aristas tienen <b>peso/distancia</b>, buscamos el camino de suma mínima.</p>
+    <div class="grid2">
+      <div class="note"><span class="t">Dijkstra</span>Parte de <b>un origen conocido</b> y encuentra el camino mínimo a todos los demás nodos. Va armando un conjunto de nodos óptimos e incorpora en cada iteración el de menor distancia tentativa.</div>
+      <div class="note g"><span class="t">Floyd-Warshall (clausura transitiva)</span>No parte de un origen: calcula los mínimos <b>todos contra todos</b>. Itera agregando cada nodo como <b>intermedio</b> y mejora la matriz si pasar por él acorta el camino.</div>
+    </div>
+    <h4>Floyd-Warshall paso a paso (grafo de la izquierda)</h4>
+    <div class="grid2">
+      <div class="stage"><div id="fw-graph"></div></div>
+      <div>
+        <div class="toolbar">
+          <button class="b b-blue" id="fw-step">▶ Agregar intermedio</button>
+          <button class="b b-ghost" id="fw-reset">↺ Reset</button>
+        </div>
+        <div id="fw-matrix"></div>
+        <div class="status" id="fw-st">Matriz inicial: distancias directas. <code class="inline">inf</code> = sin camino directo.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card qbox">
+    <h3><span class="dot" style="background:#0ea5e9"></span>Preguntas de parcial</h3>
+    <details class="qa"><summary>Si se usa Pfaltz para implementar un árbol, el puntero <i>llink</i> sería siempre nulo. (V/F)</summary><div class="ans"><b>Verdadero.</b> En un árbol existe un único camino desde la raíz a cada nodo, por lo que cada nodo tiene a lo sumo un arco entrante: la lista de arcos entrantes (y su enlace) queda vacía.</div></details>
+    <details class="qa"><summary>El concepto de <i>camino</i> está asociado a grafos no dirigidos y el de <i>paso</i> a dirigidos. (V/F)</summary><div class="ans"><b>Verdadero,</b> aunque también pueden evaluarse caminos en grafos dirigidos cuando sólo importa si dos nodos están vinculados, sin considerar el sentido.</div></details>
+    <details class="qa"><summary>Las representaciones dinámicas siempre ocupan menos espacio que las estáticas. (V/F)</summary><div class="ans"><b>Falso.</b> Depende de la densidad. Cuantas más aristas, menos desperdicia la estática y más cuestan los punteros de la dinámica.</div></details>
+  </div>
+</section>
+
+<!-- ================= UNIDAD 2 ================= -->
+<section id="u2">
+  <div class="utitle"><div class="unum">2</div><h2 class="sec">Estructuras de Datos</h2></div>
+  <p class="lead">Una estructura de datos es un grafo dirigido y restricto unívoco: a cada nodo le llega a lo sumo un arco. Su <b>dinámica de altas y bajas</b> es lo que diferencia a cada tipo.</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>Clasificación: biunívocas vs unívocas</h3>
+    <p>Lo que las diferencia es <b>cuántos predecesores y sucesores</b> puede tener cada nodo:</p>
+    <div class="grid2">
+      <div class="stage" style="text-align:center">
+        <svg viewBox="0 0 300 130" style="max-width:330px">
+          <defs><marker id="bu-a" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2563eb"/></marker></defs>
+          <line x1="58" y1="55" x2="92" y2="55" stroke="#2563eb" stroke-width="2.5" marker-end="url(#bu-a)"/>
+          <line x1="138" y1="55" x2="172" y2="55" stroke="#2563eb" stroke-width="2.5" marker-end="url(#bu-a)"/>
+          <line x1="218" y1="55" x2="252" y2="55" stroke="#2563eb" stroke-width="2.5" marker-end="url(#bu-a)"/>
+          <circle cx="40" cy="55" r="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="40" y="60" text-anchor="middle" font-size="13" font-weight="800" fill="#1e3a8a">a</text>
+          <circle cx="115" cy="55" r="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="115" y="60" text-anchor="middle" font-size="13" font-weight="800" fill="#1e3a8a">b</text>
+          <circle cx="195" cy="55" r="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="195" y="60" text-anchor="middle" font-size="13" font-weight="800" fill="#1e3a8a">c</text>
+          <circle cx="275" cy="55" r="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="275" y="60" text-anchor="middle" font-size="13" font-weight="800" fill="#1e3a8a">d</text>
+          <text x="150" y="105" text-anchor="middle" font-size="13" font-weight="800" fill="#1e40af">BIUNÍVOCA (cadena)</text>
+          <text x="150" y="122" text-anchor="middle" font-size="11" fill="#64748b">cada nodo: ≤1 predecesor y ≤1 sucesor</text>
+        </svg>
+        <p style="font-size:12.5px;margin:2px 0 0">Son las <b>pilas, colas y listas</b>. La relación es "uno a uno" en ambos sentidos.</p>
+      </div>
+      <div class="stage" style="text-align:center">
+        <svg viewBox="0 0 300 130" style="max-width:330px">
+          <defs><marker id="un-a" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#16a34a"/></marker></defs>
+          <line x1="150" y1="36" x2="78" y2="74" stroke="#16a34a" stroke-width="2.5" marker-end="url(#un-a)"/>
+          <line x1="150" y1="36" x2="150" y2="72" stroke="#16a34a" stroke-width="2.5" marker-end="url(#un-a)"/>
+          <line x1="150" y1="36" x2="222" y2="74" stroke="#16a34a" stroke-width="2.5" marker-end="url(#un-a)"/>
+          <circle cx="150" cy="28" r="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="150" y="33" text-anchor="middle" font-size="13" font-weight="800" fill="#166534">a</text>
+          <circle cx="65" cy="90" r="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="65" y="95" text-anchor="middle" font-size="13" font-weight="800" fill="#166534">b</text>
+          <circle cx="150" cy="90" r="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="150" y="95" text-anchor="middle" font-size="13" font-weight="800" fill="#166534">c</text>
+          <circle cx="235" cy="90" r="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="235" y="95" text-anchor="middle" font-size="13" font-weight="800" fill="#166534">d</text>
+          <text x="150" y="122" text-anchor="middle" font-size="11" fill="#64748b">1 predecesor, pero VARIOS sucesores</text>
+        </svg>
+        <p style="font-size:12.5px;margin:2px 0 0">Son los <b>árboles</b> (Unidad 3). Por eso no son biunívocas: <b>a</b> tiene 3 hijos.</p>
+      </div>
+    </div>
+    <div class="note">La clave: en una <b>biunívoca</b> a cada nodo le llega 1 flecha y sale 1 flecha (una cadena). En una <b>unívoca</b> sigue llegando 1 sola flecha (un único "padre"), pero pueden salir varias (varios "hijos").</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Pila (Stack) — LIFO</h3>
+    <p>Last In, First Out. Se inserta y se extrae por el <b>mismo extremo</b> (el "tope"). <b>Anula la prioridad</b>: el último en entrar es el primero en salir. Se usa para implementar recursividad y evaluar expresiones.</p>
+    <div class="toolbar">
+      <input id="stk-in" class="cell" style="width:70px" value="7">
+      <button class="b b-blue" id="stk-push">⬇ Push</button>
+      <button class="b b-rose" id="stk-pop">⬆ Pop</button>
+      <button class="b b-ghost" id="stk-rst">Reset</button>
+    </div>
+    <div class="grid2">
+      <div class="stage" style="display:flex;justify-content:center"><div id="stk-view" class="dsrow" style="flex-direction:column-reverse;align-items:center;min-height:240px"></div></div>
+      <div><div class="status" id="stk-st">Insertá y extraé siempre por arriba (tope).</div>
+        <div class="note a" style="margin-top:10px"><span class="t">Apuntadores en memoria</span>En la implementación dinámica los punteros van en <b>sentido inverso</b> a la salida: para extraer hay que saber quién queda en el tope.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Cola (Queue) — FIFO</h3>
+    <p>First In, First Out. <b>Privilegia el orden y la jerarquía de llegada</b>: ingresa por un extremo y sale por el opuesto. Se usa para colas de impresión y para el recorrido BFS de grafos/árboles.</p>
+    <div class="toolbar">
+      <input id="q-in" class="cell" style="width:70px" value="3">
+      <button class="b b-blue" id="q-enq">➡ Encolar</button>
+      <button class="b b-rose" id="q-deq">⬅ Desencolar</button>
+      <button class="b b-ghost" id="q-rst">Reset</button>
+    </div>
+    <div class="stage"><div id="q-view" class="dsrow"></div></div>
+    <div class="status" id="q-st">⬅ sale el más antiguo (First) · entra el nuevo al fondo (Last) ➡</div>
+    <div class="note"><span class="t">Cola doble (DEQUE)</span>Permite ingresar y extraer por <b>ambos</b> extremos. <span class="k">Cola de prioridad:</span> se atiende según una prioridad asociada, no sólo por orden de llegada.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Listas</h3>
+    <p>Dinámica <b>abierta</b>: para dar un alta/baja se recorre la lista y se inserta/quita en la posición que se requiera (permite mantenerla ordenada por algún criterio). El puntero inicial se llama <code class="inline">First (F)</code>.</p>
+    <div class="toolbar" id="list-chips"></div>
+    <div class="stage"><div id="list-svg"></div></div>
+    <div class="status" id="list-st"></div>
+  </div>
+</section>
+
+<!-- ================= UNIDAD 3 ================= -->
+<section id="u3">
+  <div class="utitle"><div class="unum">3</div><h2 class="sec">Árboles</h2></div>
+  <p class="lead">Un árbol es un grafo especial. Es la "estructura de búsqueda por naturaleza": las búsquedas se hacen por <b>niveles</b>, no por cantidad de elementos.</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>Definición y conceptos</h3>
+    <div class="grid2">
+      <div>
+        <h4>Un árbol es un grafo que cumple:</h4>
+        <ul class="tt">
+          <li>Es <span class="k">dirigido</span> (las relaciones tienen dirección).</li>
+          <li>Es <span class="k">acíclico</span> (no hay ciclos).</li>
+          <li>Existe un <span class="k">camino único</span> entre cada par de nodos.</li>
+          <li><span class="k mono">#V = #E + 1</span> (los nodos superan en 1 a los arcos).</li>
+        </ul>
+        <div class="note">Para ser <b>árbol computacional</b> se agrega una 5ª condición: tiene <b>raíz única</b> (es un árbol principal derecho).</div>
+      </div>
+      <div>
+        <h4>Conceptos</h4>
+        <ul class="tt">
+          <li><span class="k">Grado:</span> máxima cantidad de hijos por nodo (2 → binario, n → n-ario).</li>
+          <li><span class="k">Nivel:</span> posición en altura respecto de la raíz (la raíz es nivel 0).</li>
+          <li><span class="k">Profundidad:</span> cantidad de niveles del árbol.</li>
+          <li><span class="k">Hoja / nodo maximal:</span> nodo sin relación saliente.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Características (completo · lleno · balanceado)</h3>
+    <div class="toolbar" id="treechar-chips"></div>
+    <div class="grid2">
+      <div class="stage"><div id="treechar-svg"></div></div>
+      <div><h4 id="treechar-name"></h4><p id="treechar-desc"></p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Crecimiento exponencial</h3>
+    <p>En cada nivel la máxima cantidad de elementos es <span class="hl mono">grado<sup>nivel</sup></span>. Por eso la máxima cantidad de elementos de un árbol es <span class="hl mono">grado<sup>profundidad</sup> − 1</span>. Mové los controles:</p>
+    <div class="grid2">
+      <div>
+        <div class="slbl"><span>Grado</span><span id="g-val">2</span></div>
+        <input type="range" id="g-range" min="2" max="5" value="2">
+        <div class="slbl" style="margin-top:14px"><span>Profundidad (niveles)</span><span id="p-val">4</span></div>
+        <input type="range" id="p-range" min="1" max="6" value="4">
+        <div class="status" id="grow-st"></div>
+      </div>
+      <div class="stage" style="display:flex;align-items:center;justify-content:center;text-align:center">
+        <div><div style="font-size:46px;font-weight:800;color:#1e40af" id="grow-num">15</div>
+        <div style="color:#64748b;font-size:13px">elementos máximos</div>
+        <div class="mono" id="grow-formula" style="margin-top:10px;font-size:14px;color:#334155"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Implementación estática (vector)</h3>
+    <p>El nodo en la posición 0 es la raíz; se carga por niveles de izquierda a derecha. Las posiciones vacías quedan reservadas (NULL). Para un nodo en índice <b>i</b> (grado 2):</p>
+    <div class="grid3">
+      <div class="note"><span class="t">Hijo izquierdo</span><span class="mono">2i + 1</span></div>
+      <div class="note"><span class="t">Hijo derecho</span><span class="mono">2i + 2</span></div>
+      <div class="note"><span class="t">Padre</span><span class="mono">⌊(i−1)/2⌋</span></div>
+    </div>
+    <div class="stage"><div id="vecmap-svg"></div></div>
+    <p style="font-size:12.5px;color:#64748b">Pasá el mouse por un nodo del árbol → se ilumina su celda en el vector (y viceversa).</p>
+    <div id="vecmap-arr" class="dsrow" style="justify-content:center"></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Transformada de Knuth (n-ario → binario)</h3>
+    <p>Un árbol n-ario no se puede guardar directamente. Knuth lo convierte en <b>binario</b>: <span class="k">primer hijo a la izquierda, hermanos a la derecha</span>.</p>
+    <div class="toolbar"><button class="b b-blue" id="knuth-toggle">Ver árbol binario (Knuth) ⇄</button></div>
+    <div class="stage"><div id="knuth-svg"></div></div>
+    <div class="status" id="knuth-st">Árbol real n-ario. Apretá el botón para ver su transformada.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Recorridos / barridos</h3>
+    <p>Hay dos familias: <b>en profundidad</b> (recursivos: preorden, inorden, postorden) y <b>en anchura</b> (por niveles, usa una cola). La diferencia entre los de profundidad es <b>cuándo se lee</b> el nodo.</p>
+    <div class="toolbar" id="trav-chips"></div>
+    <div class="grid2">
+      <div class="stage"><div id="trav-svg"></div></div>
+      <div>
+        <h4>Salida</h4>
+        <div id="trav-out" class="dsrow" style="min-height:50px"></div>
+        <div class="toolbar" style="margin-top:12px">
+          <button class="b b-blue" id="trav-step">▶ Paso</button>
+          <button class="b b-emer" id="trav-play">⏩ Auto</button>
+          <button class="b b-ghost" id="trav-reset">↺ Reset</button>
+        </div>
+        <div class="status" id="trav-st"></div>
+        <div class="note" id="trav-rule" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Árbol de expresión</h3>
+    <p>Un árbol binario que representa una expresión matemática: las <b>hojas son los números</b> y los <b>nodos internos son los operadores</b>. Recorriéndolo se obtiene la expresión en distintas notaciones.</p>
+    <div class="grid2">
+      <div class="stage"><div id="expr-svg"></div><div style="text-align:center;font-size:12px;color:#64748b">3 + 5 × 8 − 4 × 2</div></div>
+      <div>
+        <div class="note"><span class="t">Inorden → notación INFIJA</span><span class="mono">3 + 5 × 8 − 4 × 2</span> (la de toda la vida, con paréntesis implícitos).</div>
+        <div class="note g"><span class="t">Postorden → notación POSTFIJA (polaca inversa)</span><span class="mono">3 5 8 × + 4 2 × −</span> (sin paréntesis; así la resuelve una pila).</div>
+        <div class="note a"><span class="t">Preorden → notación PREFIJA</span><span class="mono">− + 3 × 5 8 × 4 2</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card qbox">
+    <h3><span class="dot" style="background:#0ea5e9"></span>Preguntas de parcial</h3>
+    <details class="qa"><summary>El barrido simétrico (inorden) sólo puede realizarse en árboles binarios. (V/F)</summary><div class="ans"><b>Verdadero.</b> Inorden lee Izquierda-Raíz-Derecha; necesita exactamente un hijo izquierdo y uno derecho → grado 2.</div></details>
+    <details class="qa"><summary>Un grafo con n nodos y (n−1) arcos siempre es un árbol. (V/F)</summary><div class="ans"><b>Falso.</b> Además debe ser dirigido, acíclico y tener un único camino entre cada par de nodos.</div></details>
+    <details class="qa"><summary>Diferencia entre árbol completo y árbol lleno.</summary><div class="ans"><b>Completo:</b> todos los nodos no-hoja tienen el grado del árbol, salvo quizá el último nivel (completado de izq. a der.). <b>Lleno:</b> es completo y además todas las hojas están en el mismo nivel.</div></details>
+  </div>
+</section>
+
+<!-- ================= UNIDAD 4 ================= -->
+<section id="u4">
+  <div class="utitle"><div class="unum">4</div><h2 class="sec">Árboles de Búsqueda</h2></div>
+  <p class="lead">Un árbol de búsqueda ordena las claves según un criterio para hacer búsquedas, altas y bajas eficientes. La búsqueda cuesta <span class="mono">log₂(n+1)</span> porque se recorre por niveles.</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>Complejidad: computacional vs espacial</h3>
+    <div class="grid2">
+      <div class="note"><span class="t">Complejidad computacional</span>Cuánto <b>procesa</b> un algoritmo (cantidad de pasos/comparaciones).</div>
+      <div class="note g"><span class="t">Complejidad espacial</span>Cuánto <b>espacio</b> físico necesita. Suelen ser inversamente proporcionales; hoy se prioriza reducir la computacional.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Árbol Binario de Búsqueda (ABB)</h3>
+    <p>Regla: valores <b>menores o iguales</b> a la izquierda, <b>mayores</b> a la derecha. Mirá cómo se inserta la secuencia <span class="hl mono">14, 9, 5, 6, 17, 34, 4, 2, 11, 19</span> — cada valor baja comparándose (amarillo = camino, verde = donde queda).</p>
+    <div class="toolbar">
+      <button class="b b-blue" id="abb-step">▶ Insertar siguiente</button>
+      <button class="b b-emer" id="abb-play">⏩ Auto</button>
+      <button class="b b-ghost" id="abb-reset">↺ Reset</button>
+    </div>
+    <div class="stage"><div id="abb-svg" style="min-height:60px"></div></div>
+    <div class="status" id="abb-st"></div>
+    <div class="note">Si recorrés un ABB en <b>inorden</b> (izq‑raíz‑der) salen los valores <b>ordenados de menor a mayor</b>. Por eso la búsqueda cuesta <span class="mono">log₂(n+1)</span> (por niveles, no por elementos).</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Criterios de equilibrio y rotaciones</h3>
+    <div class="grid3">
+      <div class="note"><span class="t">Balanceado</span>En la <b>raíz</b>, igual cantidad de nodos a izquierda y derecha (puede diferir en 1).</div>
+      <div class="note a"><span class="t">Perfectamente balanceado</span>Balanceado en <b>todos</b> los nodos.</div>
+      <div class="note g"><span class="t">AVL</span>Para todo nodo, la diferencia de <b>niveles</b> (altura) entre sus ramas es ≤ 1.</div>
+    </div>
+    <h4>Rotación para balancear</h4>
+    <p>Si la futura raíz está a la derecha → se rota a izquierda; si está a la izquierda → se rota a derecha. El valor medio pasa a ser la raíz.</p>
+    <div class="toolbar"><button class="b b-blue" id="rot-toggle">Rotar ⇄</button></div>
+    <div class="stage"><div id="rot-svg"></div></div>
+    <div class="status" id="rot-st">Árbol desbalanceado (5 nodos a un lado, 1 al otro).</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Baja de un nodo (3 casos)</h3>
+    <div class="grid3">
+      <div class="note"><span class="t">Sin hijos (hoja)</span>Se anula el puntero del padre que lo referencia (a NULL).</div>
+      <div class="note a"><span class="t">Con un hijo</span>El padre pasa a apuntar directamente al único hijo del nodo eliminado.</div>
+      <div class="note r"><span class="t">Con dos hijos</span>Se reemplaza por el <b>menor de su subárbol derecho</b> (se pisan datos), se elimina ese nodo y se revisa el balanceo.</div>
+    </div>
+  </div>
+
+  <div class="card qbox">
+    <h3><span class="dot" style="background:#0ea5e9"></span>Preguntas de parcial</h3>
+    <details class="qa"><summary>Diferencia entre árbol balanceado y AVL.</summary><div class="ans"><b>Balanceado</b> compara <b>cantidad de nodos</b> de las ramas (parado en la raíz). <b>AVL</b> compara <b>cantidad de niveles</b> y para <b>todo</b> nodo. Ambos pueden diferir en 1.</div></details>
+    <details class="qa"><summary>Si un ABB es lleno, entonces está balanceado. (V/F)</summary><div class="ans"><b>Verdadero.</b> Un árbol lleno tiene todas las hojas al mismo nivel, por lo que la cantidad de nodos a cada lado de la raíz coincide.</div></details>
+  </div>
+</section>
+
+<!-- ================= UNIDAD 5 ================= -->
+<section id="u5">
+  <div class="utitle"><div class="unum">5</div><h2 class="sec">Compresión de datos (Huffman)</h2></div>
+  <p class="lead">Algoritmos de compresión <b>con pérdida</b> (multimedia, no reversibles) y <b>sin pérdida</b> (reversibles). Huffman es sin pérdida y muy eficiente con texto.</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>¿Por qué se puede comprimir?</h3>
+    <p>La tabla ASCII es de longitud fija: <span class="mono">2⁸ = 256</span> caracteres → cada uno ocupa <b>1 byte (8 bits)</b>, use o no todos los caracteres. Si un texto usa pocos caracteres, se desperdician bits.</p>
+    <div class="note g"><span class="t">Idea de Huffman</span>Asignar a cada carácter un <b>código de longitud variable</b>: cuanto más frecuente, más corto su código.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Huffman paso a paso — texto "NEUQUEN"</h3>
+    <p>Estructuras: una <b>tabla</b> (status, carácter, frecuencia, código), un <b>árbol</b> (se arma desde las hojas hacia la raíz combinando las 2 frecuencias más chicas) y una <b>pila</b> (para leer el código desde la hoja hasta la raíz).</p>
+    <div class="toolbar">
+      <button class="b b-blue" id="huf-step">▶ Paso</button>
+      <button class="b b-emer" id="huf-play">⏩ Auto</button>
+      <button class="b b-ghost" id="huf-reset">↺ Reset</button>
+    </div>
+    <div class="grid2">
+      <div><h4>Tabla</h4><div id="huf-table"></div></div>
+      <div><h4>Árbol de Huffman</h4><div class="stage"><div id="huf-svg" style="min-height:120px"></div></div></div>
+    </div>
+    <div class="status" id="huf-st"></div>
+    <div class="note a"><span class="t">Reglas de armado (cátedra)</span>1) Se combinan de a pares <b>los dos de menor frecuencia</b>. 2) Si tienen <b>igual</b> frecuencia: el primero va de hijo izquierdo y el último de derecho. Si una es menor: la de <b>menor frecuencia va a la izquierda</b> y la mayor a la derecha. 3) Se toman primero los caracteres <b>originales</b>; si no quedan (o son mayores), se toman los nodos combinados "αₓ". El nodo padre lleva la <b>suma</b> de las frecuencias de sus hijos.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Archivo comprimido y descompresión</h3>
+    <div class="grid2">
+      <div class="note"><span class="t">Cabecera (sin codificar)</span>Cantidad de caracteres distintos + tabla original (carácter y frecuencia). Permite reconstruir el árbol.</div>
+      <div class="note g"><span class="t">Cuerpo (codificado)</span>Cada carácter reemplazado por su código de longitud variable.</div>
+    </div>
+    <p>En la <b>descompresión</b> se reconstruye el árbol con la cabecera y, por cada bit, se baja por el árbol (0 = izquierda, 1 = derecha) hasta llegar a una hoja → ese es el carácter. Como <b>todas las hojas son caracteres</b>, ningún código es prefijo de otro.</p>
+  </div>
+</section>
+
+<!-- ================= UNIDAD 6 ================= -->
+<section id="u6">
+  <div class="utitle"><div class="unum">6</div><h2 class="sec">Métodos de Ordenamiento</h2></div>
+  <p class="lead">Ordenan un conjunto de valores en un momento dado. La elección del mejor método depende de la cantidad de elementos, el orden previo y dónde se ordena (RAM, disco).</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>Conceptos previos</h3>
+    <div class="grid4">
+      <div class="note"><span class="t">Registro</span>Cada valor suele ser una <b>clave (key)</b> dentro de un registro con datos satélite.</div>
+      <div class="note g"><span class="t">Estable</span>Mantiene el orden relativo de claves <b>iguales</b>. Permite ordenar por claves múltiples.</div>
+      <div class="note a"><span class="t">In situ</span>Usa la <b>misma</b> estructura (memoria extra mínima y constante).</div>
+      <div class="note"><span class="t">Interno / externo</span>Ordena en <b>RAM</b> (acceso aleatorio) o en <b>disco</b> (acceso secuencial / por bloques).</div>
+    </div>
+    <div class="note"><span class="t">Orden de complejidad — O(·)</span>Cantidad de pasos según el tamaño <b>n</b> de la entrada. Es el costo teórico (igual en toda máquina). Las computadoras resuelven en tiempo razonable problemas de orden lineal o polinómico.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Visualizador de algoritmos</h3>
+    <p>Elegí un algoritmo y mirá cómo trabaja sobre el mismo vector.</p>
+    <div class="toolbar" id="sort-chips"></div>
+    <div class="stage"><div id="sort-view" class="dsrow" style="justify-content:center;min-height:80px"></div></div>
+    <div class="toolbar">
+      <button class="b b-blue" id="sort-step">▶ Paso</button>
+      <button class="b b-emer" id="sort-play">⏩ Auto</button>
+      <button class="b b-ghost" id="sort-reset">↺ Reset</button>
+      <span class="legend" style="margin-left:auto"><span><i style="background:#dbeafe;border:1px solid #2563eb"></i>compara</span><span><i style="background:#fef3c7;border:1px solid #d97706"></i>mueve</span><span><i style="background:#ede9fe;border:1px solid #7c3aed"></i>pivot</span><span><i style="background:#d1fae5;border:1px solid #059669"></i>ordenado</span></span>
+    </div>
+    <div class="status" id="sort-st"></div>
+    <div class="note" id="sort-info" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Comparación de métodos</h3>
+    <table class="tbl">
+      <tr><th>Nombre</th><th>Mejor</th><th>Medio</th><th>Peor</th><th>Estable</th><th>Comentario</th></tr>
+      <tr><td>Bubble</td><td>O(n)</td><td>O(n²)</td><td>O(n²)</td><td>Sí</td><td>El más lento, uso pedagógico</td></tr>
+      <tr><td>Selection</td><td>O(n²)</td><td>O(n²)</td><td>O(n²)</td><td>Sí</td><td>Siempre el mismo tiempo</td></tr>
+      <tr><td>Insertion</td><td>O(n)</td><td>O(n)</td><td>O(n²)</td><td>Sí</td><td>Bueno si está casi ordenado</td></tr>
+      <tr><td>Shell</td><td>O(n^5/4)</td><td>O(n^3/2)</td><td>O(n²)</td><td>No</td><td>Depende de la secuencia de saltos</td></tr>
+      <tr><td>Merge</td><td>O(n·log n)</td><td>O(n·log n)</td><td>O(n·log n)</td><td>Sí</td><td>Apto para paralelo; usa memoria extra</td></tr>
+      <tr><td>Heap</td><td>O(n·log n)</td><td>O(n·log n)</td><td>O(n·log n)</td><td>No</td><td>In situ; acotado en el tiempo</td></tr>
+      <tr><td>Quick</td><td>O(n·log n)</td><td>O(n·log n)</td><td>O(n²)</td><td>No</td><td>El más rápido en la práctica</td></tr>
+    </table>
+    <div class="note a"><span class="t">Quick — elección del pivot</span>El peor caso O(n²) ocurre si el pivot queda en un extremo (lista ya ordenada). Por eso se usa la <b>mediana de tres</b> (primero, central, último) para evitarlo.</div>
+    <div class="grid2">
+      <div class="note"><span class="t">Variantes de Quick</span><b>Bsort:</b> igual a Quick pero el pivot es siempre el elemento <b>central</b>. <b>Meansort:</b> el pivot es el más cercano a la <b>media</b>.</div>
+      <div class="note g"><span class="t">¿Cómo se mide la complejidad?</span>Se cuenta la <b>cantidad de comparaciones</b> (un <code class="inline">if</code> puede ser hasta 100× más lento que una operación matemática). Los problemas resolubles en tiempo lineal/polinómico forman el conjunto <b>P</b>; los de costo factorial/exponencial, el <b>NP</b>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNIDAD 7 ================= -->
+<section id="u7">
+  <div class="utitle"><div class="unum">7</div><h2 class="sec">Hashing</h2></div>
+  <p class="lead">Estructura para <b>acceder</b> a datos por su clave. Guarda (clave → puntero a los datos). El acceso es casi directo: <span class="mono">O(1)</span>. No sirve para búsquedas por rango (para eso, Árbol B).</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>Función de hash y colisiones</h3>
+    <p>Una <b>función de hash</b> transforma una clave en una posición de la tabla: <span class="mono">h(x) = |x| mod M</span> (M conviene primo). Si dos claves distintas caen en la misma posición → <b>colisión</b> (sinónimos). No tiene función inversa.</p>
+    <div class="grid3">
+      <div class="note"><span class="t">División</span><span class="mono">h(x)=x mod M</span>. Simple; M debe ser primo para dispersar bien.</div>
+      <div class="note"><span class="t">Dobles</span>Parte la clave en dos, las pasa a binario y hace "suma or-exclusivo".</div>
+      <div class="note"><span class="t">Cuadrado medio</span>Eleva la clave al cuadrado y toma los k dígitos del medio.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Resolución de colisiones</h3>
+    <p>Tabla de tamaño M=11, <span class="mono">h(x)=x mod 11</span>. Insertamos <span class="hl mono">14, 25, 36, 3, 47</span> (¡todas dan 3! → colisionan). Elegí el método y mirá cómo se resuelve cada una:</p>
+    <div class="toolbar" id="hash-chips"></div>
+    <div class="toolbar">
+      <button class="b b-blue" id="hash-step">▶ Insertar siguiente</button>
+      <button class="b b-emer" id="hash-play">⏩ Auto</button>
+      <button class="b b-ghost" id="hash-reset">↺ Reset</button>
+    </div>
+    <div class="stage"><div id="hash-view"></div></div>
+    <div class="status" id="hash-st"></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Detalles importantes</h3>
+    <div class="grid3">
+      <div class="note a"><span class="t">Clustering (agrupamiento)</span>En sondeo lineal (+1) se forman bloques contiguos que degradan el acceso a O(n). Por eso conviene sumar un <b>primo grande</b>, no 1.</div>
+      <div class="note"><span class="t">Factor de ocupación (λ)</span>elementos / tamaño. Límite aceptable ≈ <b>80%</b>; más allá los saltos crecen mucho.</div>
+      <div class="note g"><span class="t">Estático vs dinámico</span>Estático: bajas <b>lógicas</b> + re-hash. Dinámico (chaining): bajas <b>físicas</b>, sin re-hash; las colisiones van a una lista.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Buena función de hash y métodos de sondeo</h3>
+    <h4>Una buena función de hash debe…</h4>
+    <div class="grid3">
+      <div class="note"><span class="t">Evitar colisiones</span>Idealmente, claves distintas → posiciones distintas.</div>
+      <div class="note"><span class="t">Distribuir uniformemente</span>Repartir las claves por toda la tabla (por eso M conviene primo).</div>
+      <div class="note"><span class="t">Ser fácil de calcular</span>Tiempo <span class="mono">O(1)</span>.</div>
+    </div>
+    <h4>Direccionamiento abierto: 3 formas de sondear</h4>
+    <table class="tbl">
+      <tr><th>Sondeo</th><th>Fórmula (desde H)</th><th>Agrupación primaria</th><th>Restricción</th></tr>
+      <tr><td><b>Lineal</b></td><td class="mono">H+1, H+2, H+3…</td><td>Sí (clustering)</td><td>Ninguna</td></tr>
+      <tr><td><b>Cuadrático</b></td><td class="mono">H+1², H+2², H+3²…</td><td>No</td><td>λ &lt; ½</td></tr>
+      <tr><td><b>Hashing doble</b></td><td class="mono">H + i·h₂(clave)</td><td>No</td><td>M primo</td></tr>
+    </table>
+    <div class="note g"><span class="t">Hashing doble = el preferido</span>Usa una <b>segunda función</b> h₂ como tamaño de salto. Así, claves que colisionan en la misma posición siguen <b>secuencias distintas</b> (evita la agrupación secundaria del cuadrático).</div>
+  </div>
+
+  <div class="card qbox">
+    <h3><span class="dot" style="background:#0ea5e9"></span>Preguntas de parcial</h3>
+    <details class="qa"><summary>No existe función inversa para Hash. (V/F)</summary><div class="ans"><b>Verdadero.</b> Dos entradas distintas pueden dar el mismo valor; revertir el hash no es posible (o requiere fuerza bruta).</div></details>
+    <details class="qa"><summary>¿Qué es una colisión?</summary><div class="ans">Cuando <code class="inline">h(clave_i) = h(clave_j)</code> para claves distintas. En hashing estático se resuelve con re-hash; en dinámico, agregando un nodo a la lista de esa posición.</div></details>
+  </div>
+</section>
+
+<!-- ================= UNIDAD 8 ================= -->
+<section id="u8">
+  <div class="utitle"><div class="unum">8</div><h2 class="sec">Árbol B y Árbol B+</h2></div>
+  <p class="lead">Árboles M-arios balanceados para crear <b>índices físicos</b> en disco. Minimizan los accesos a disco: búsqueda, inserción y eliminación en O(log n), con todas las hojas al mismo nivel.</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>Árboles M-arios y nodos del Árbol B</h3>
+    <p>Un árbol <b>M-ario</b> (multicamino) tiene grado &gt; 2 (en la práctica entre 50 y 2000, según el tamaño de página de disco). El Árbol B tiene dos tipos de nodo:</p>
+    <div class="grid2">
+      <div class="note"><span class="t">Nodo rama (raíz/interno)</span>Claves ordenadas + <b>punteros a hijos</b>. Decisión multicamino: se baja por el hijo correspondiente al rango de la clave buscada.</div>
+      <div class="note g"><span class="t">Nodo hoja</span>Claves + <b>puntero a la posición de los datos</b> (el rowId). Todas las hojas están al mismo nivel.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Inserción y SPLIT (división)</h3>
+    <p>Si al insertar una clave la hoja se llena, se produce un <b>split</b>: se parte en dos (mitad y mitad) y la clave del medio sube al padre. Si el padre también se llena, se divide en cascada (puede crear una nueva raíz → así crece la altura).</p>
+    <div class="toolbar"><button class="b b-blue" id="bsplit-toggle">Insertar la clave 6 (provoca split) ⇄</button></div>
+    <div class="stage"><div id="bsplit-svg"></div></div>
+    <div class="status" id="bsplit-st"></div>
+    <div class="note a"><span class="t">Eliminación y fusión</span>Si al borrar un nodo queda con muy pocas claves, se <b>redistribuye</b> o se <b>fusiona</b> con un hermano; puede bajar la altura del árbol.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Árbol B+ y búsqueda por RANGO</h3>
+    <p>En el <b>B+</b> todos los datos están en las <b>hojas</b>, y las hojas están enlazadas entre sí (punteros verdes). Eso hace que las búsquedas por rango sean muy eficientes: se baja una vez y se "camina" por las hojas.</p>
+    <div class="toolbar">
+      <span class="slbl" style="display:inline">desde</span><input id="bp-lo" class="cell" style="width:64px" value="6">
+      <span class="slbl" style="display:inline">hasta</span><input id="bp-hi" class="cell" style="width:64px" value="11">
+      <button class="b b-blue" id="bp-go">▶ Buscar rango</button>
+      <button class="b b-ghost" id="bp-reset">Reset</button>
+    </div>
+    <div class="stage"><div id="bp-svg"></div></div>
+    <div class="status" id="bp-st">Buscá un rango: se desciende hasta la primera hoja y se siguen los enlaces verdes.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Índices</h3>
+    <p>Un <b>índice</b> es una estructura (en general un B+) asociada a una tabla que acelera la búsqueda de filas. Es independiente física y lógicamente de los datos. Conviene tenerlos <b>en su justa medida</b>: cada índice hay que mantenerlo actualizado ante cada insert/update/delete (es costoso).</p>
+    <div class="note"><span class="t">Hash vs Árbol B</span>Hash es más rápido para clave puntual, <b>pero</b> con claves alfanuméricas/complejas genera muchas colisiones y se acerca a O(n). El B/B+ es mejor para rangos y claves duplicadas.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Definición formal (orden M) y por qué en disco</h3>
+    <p>Un <b>árbol‑B de orden M</b> es un árbol M‑ario de búsqueda que cumple:</p>
+    <ul class="tt">
+      <li>La raíz tiene <b>al menos 2</b> subárboles (salvo que sea hoja) y a lo sumo M.</li>
+      <li>Los nodos internos (menos la raíz) tienen entre <span class="mono">⌈M/2⌉</span> y <b>M</b> subárboles → están <b>al menos medio llenos</b> (no degenera en binario).</li>
+      <li><b>Todas las hojas están al mismo nivel</b> (está balanceado).</li>
+    </ul>
+    <div class="note"><span class="t">¿Por qué M tan grande (50–2000)?</span>Un acceso a <b>disco</b> es 10.000–1.000.000 veces más lento que a memoria. Se elige M para que <b>un nodo entre en un bloque/página de disco</b>: con pocos accesos (poca altura) se llega al dato. Inventado por <b>Bayer y McCreight (1972)</b> — la "B" es por <i>balanceado/Bayer</i>, NO por binario.</div>
+  </div>
+
+  <div class="card qbox">
+    <h3><span class="dot" style="background:#0ea5e9"></span>Preguntas de parcial</h3>
+    <details class="qa"><summary>El Árbol B es más performante que el B+ para búsquedas por rango. (V/F)</summary><div class="ans"><b>Falso.</b> El B+ tiene punteros entre hojas que permiten recorrer el rango sin volver a subir.</div></details>
+    <details class="qa"><summary>En un Árbol B todas las hojas están al mismo nivel. (V/F)</summary><div class="ans"><b>Verdadero.</b> Se mantiene balanceado: la altura sólo crece cuando se divide la raíz.</div></details>
+  </div>
+</section>
+
+<!-- ================= UNIDAD 9 ================= -->
+<section id="u9">
+  <div class="utitle"><div class="unum">9</div><h2 class="sec">Teoría de Base de Datos</h2></div>
+  <p class="lead">Una BD ofrece funcionalidades (DBMS, transacciones, concurrencia) que un simple repositorio no tiene. El motor (DBMS) debe cumplir las propiedades ACID.</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>Propiedades ACID del DBMS</h3>
+    <div class="grid4">
+      <div class="note"><span class="t">A — Atomicidad</span>La operación se ejecuta entera o no se ejecuta. Ante un error vuelve a la última instancia segura.</div>
+      <div class="note g"><span class="t">C — Consistencia</span>Pasa de un estado válido a otro válido (respeta integridad referencial).</div>
+      <div class="note a"><span class="t">I — Aislamiento</span>Las transacciones concurrentes no se "pisan" (niveles de aislamiento por sesión).</div>
+      <div class="note r"><span class="t">D — Durabilidad</span>Persiste la información y permite recuperarla (backup).</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Arquitectura ANSI/SPARC (3 niveles)</h3>
+    <p>Separa cómo ven los datos los usuarios, el modelo lógico global y el almacenamiento físico. <b>Clic en cada nivel:</b></p>
+    <div class="stage"><div id="ansi-svg"></div></div>
+    <div class="status" id="ansi-st">Tocá un nivel del diagrama.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Funcionalidades del DBMS</h3>
+    <div class="grid2">
+      <div class="note"><span class="t">Diccionario de datos (metadata)</span>Los "datos de los datos": tablas y vistas del sistema.</div>
+      <div class="note"><span class="t">Seguridad (DCL)</span><code class="inline">GRANT</code> / <code class="inline">REVOKE</code> permisos a usuarios/roles sobre objetos.</div>
+      <div class="note g"><span class="t">Integridad</span>De entidad (PK única no nula), referencial (FK válida o nula) y semántica (CHECK, NOT NULL, dominios).</div>
+      <div class="note a"><span class="t">Administración física</span>Tablespaces que agrupan los datafiles donde se guardan físicamente los datos.</div>
+      <div class="note"><span class="t">Optimización</span>Elige el plan de ejecución más performante (usa índices).</div>
+      <div class="note"><span class="t">Logs y auditoría</span>Registra todo lo que ocurre en la BD.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Integridad (tema clave de parcial)</h3>
+    <p>Conjunto de reglas que garantizan que los datos sean <b>válidos, consistentes y correctos</b>. El motor las hace cumplir automáticamente en cada alta/modificación. Tres tipos:</p>
+    <div class="grid3">
+      <div class="note"><span class="t">De entidad (PK)</span>La clave primaria debe ser <b>única y no nula</b> → identifica cada fila.</div>
+      <div class="note a"><span class="t">Referencial (FK)</span>Una clave foránea debe apuntar a una PK <b>que exista</b> (o ser nula). No se borra un padre referenciado.</div>
+      <div class="note g"><span class="t">Semántica (dominio)</span>El dato respeta las reglas del negocio (edad &gt; 0, email con @, NOT NULL…).</div>
+    </div>
+    <div class="note"><span class="t">Objetos que la implementan</span>El principal es el <b>constraint</b> (PK, FK, CHECK, UNIQUE, NOT NULL, DEFAULT) — su única función es dar integridad. También ayudan de forma activa los <b>triggers</b>, <b>SP/Funciones</b> y <b>vistas</b>. La BD siempre pasa de un estado consistente a otro consistente.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Backup y Restore</h3>
+    <p>El backup copia <b>todo</b> (datos, permisos, funciones, usuarios). Comparemos los dos diferenciales:</p>
+    <div class="toolbar" id="bk-chips"></div>
+    <div class="stage"><div id="bk-svg"></div></div>
+    <div class="status" id="bk-st"></div>
+  </div>
+</section>
+
+<!-- ================= UNIDAD 10 ================= -->
+<section id="u10">
+  <div class="utitle"><div class="unum">10</div><h2 class="sec">Objetos de Base de Datos</h2></div>
+  <p class="lead">Objetos que ofrece el motor para organizar, asegurar y optimizar el acceso a los datos.</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>Vista vs Snapshot</h3>
+    <div class="grid2">
+      <div class="note"><span class="t">Vista (view)</span>Tabla <b>virtual</b> definida por una consulta. <b>No aloca espacio</b> ni guarda datos: al consultarla se ejecuta la query y devuelve los datos <b>actuales</b>. Sirve para ocultar complejidad y como mecanismo de <b>seguridad</b> (mostrar sólo ciertas columnas/filas).</div>
+      <div class="note g"><span class="t">Snapshot</span>Como una vista pero devuelve los datos de la última <b>"foto"</b> tomada. Tiene una sentencia de <code class="inline">refresh</code> que indica cada cuánto se recalcula.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Otros objetos</h3>
+    <div class="grid4">
+      <div class="note"><span class="t">DBLink</span>Conecta una BD con otra. Es unidireccional.</div>
+      <div class="note"><span class="t">Sinónimo</span>Alias permanente de un objeto.</div>
+      <div class="note a"><span class="t">IOT (Index Organized Table)</span>Tabla e índice en una misma estructura: en la hoja del árbol B, en lugar del puntero, está el <b>registro</b>. Acceso secuencial o por índice.</div>
+      <div class="note g"><span class="t">Tabla temporal</span><code class="inline">#tabla</code>: datos de existencia temporal, sólo visibles en la sesión actual; no figuran en el diccionario. Útil como almacenamiento intermedio.</div>
+    </div>
+  </div>
+
+  <div class="card qbox">
+    <h3><span class="dot" style="background:#0ea5e9"></span>Preguntas de parcial</h3>
+    <details class="qa"><summary>Relación de la vista con la seguridad.</summary><div class="ans">La vista permite que un usuario acceda a los datos <b>sin</b> tener permiso sobre las tablas subyacentes, y puede exponer sólo ciertas columnas/filas. Por eso es un mecanismo de seguridad además de simplificar consultas.</div></details>
+  </div>
+</section>
+
+<!-- ================= UNIDAD 11 ================= -->
+<section id="u11">
+  <div class="utitle"><div class="unum">11</div><h2 class="sec">Data Warehouse</h2></div>
+  <p class="lead">Base de datos corporativa que integra y filtra información de varias fuentes para analizarla desde distintos puntos de vista. Base de la inteligencia de negocio (BI).</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>Dato → Información → Conocimiento</h3>
+    <div class="grid3">
+      <div class="note"><span class="t">Dato</span>Mínima unidad; sin valor por sí solo (un número, un nombre).</div>
+      <div class="note a"><span class="t">Información</span>Datos procesados con un significado (contextualizar, categorizar, calcular, corregir, condensar).</div>
+      <div class="note g"><span class="t">Conocimiento</span>Información + experiencia que permite tomar decisiones.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>OLAP vs OLTP</h3>
+    <table class="tbl">
+      <tr><th>Aspecto</th><th>OLTP (transaccional)</th><th>OLAP (analítico)</th></tr>
+      <tr><td>Ejecución</td><td>Transacciones</td><td>Análisis</td></tr>
+      <tr><td>% de sistemas</td><td>99%</td><td>1%</td></tr>
+      <tr><td>Procesa</td><td>Datos (detalle)</td><td>Información (global)</td></tr>
+      <tr><td>Almacenamiento</td><td>Normalizado</td><td>Desnormalizado (dimensiones)</td></tr>
+      <tr><td>Volatilidad</td><td>Datos cambiantes</td><td>No volátil / persistente</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Cubo multidimensional (BDM)</h3>
+    <p>La información se analiza en un <b>cubo</b> formado por la intersección de las dimensiones. Una <b>"rebanada"</b> fija una dimensión. Arrastrá / rotá el cubo:</p>
+    <div class="grid2">
+      <div class="stage" style="display:flex;justify-content:center;align-items:center;min-height:240px;perspective:900px">
+        <div id="cube" style="width:140px;height:140px;position:relative;transform-style:preserve-3d;transition:.6s;transform:rotateX(-22deg) rotateY(-32deg)"></div>
+      </div>
+      <div>
+        <div class="toolbar">
+          <button class="b b-ghost" data-rot="x">↕ Rotar X</button>
+          <button class="b b-ghost" data-rot="y">↔ Rotar Y</button>
+        </div>
+        <ul class="tt">
+          <li><span class="k">Dimensiones:</span> Producto, Región, Tiempo. La celda guarda una <b>métrica</b> (ej. unidades vendidas).</li>
+          <li>Una vez definida la <b>granularidad</b> (ej. semanas), no se puede bajar a un detalle menor (ej. días).</li>
+        </ul>
+        <div class="note a"><span class="t">Dispersión (sparsity)</span>Muchas celdas quedan vacías. Soluciones: <b>hipercubo</b> (un solo cubo) o <b>multicubo</b> (varios objetos densos).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>OLAP: FASMI, arquitecturas y dispersión</h3>
+    <p><b>Drill‑down</b>: bajar de lo general al detalle (y <b>drill‑up</b>, lo inverso). <span style="color:#64748b">FASMI = Fast · Analysis · Shared · Multidimensional · Information.</span></p>
+    <h4>¿Dónde se almacenan los datos? Tres arquitecturas</h4>
+    <div class="grid3">
+      <div class="note"><span class="t">MOLAP</span>Datos en un cubo (MDB). El más rápido para análisis.</div>
+      <div class="note"><span class="t">ROLAP</span>Datos en tablas (RDBMS) + capa de metadatos que simula las dimensiones. Mejor para volúmenes enormes.</div>
+      <div class="note"><span class="t">HOLAP</span>Híbrido: detalle en relacional, agregaciones en multidimensional.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Características del DW y modelos</h3>
+    <div class="grid3" style="margin-bottom:6px">
+      <div class="note"><span class="t">Orientado a sujetos</span>Modelado alrededor de los temas del negocio (ventas, pagos), no de procesos.</div>
+      <div class="note g"><span class="t">Integrado</span>Datos de varias fuentes unificados de forma consistente.</div>
+      <div class="note a"><span class="t">Variante en el tiempo / no volátil</span>Guarda historia; sólo carga inicial y consulta (sin updates).</div>
+    </div>
+    <h4>Tabla de hechos y dimensiones</h4>
+    <p>La <b>tabla de hechos</b> contiene las métricas; su PK son varias FKs a las <b>dimensiones</b>. Modelos:</p>
+    <div class="grid3">
+      <div class="note"><span class="t">Estrella</span>Data mart donde cada dimensión es <b>una sola tabla</b>.</div>
+      <div class="note"><span class="t">Copo de nieve</span>Al menos una dimensión tiene <b>más de una tabla</b> (normalizada).</div>
+      <div class="note"><span class="t">Constelación</span>DW con varias tablas de hechos compartiendo dimensiones.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Data Mining (minería de datos)</h3>
+    <p>Conjunto de técnicas algorítmicas que extraen información <b>oculta</b> de grandes bases (el DW) para predecir tendencias. "Mina" los datos combinando todos los patrones entre sí. Da dos tipos de modelos: <b>descriptivos</b> (entender qué pasó) y <b>predictivos</b> (anticipar qué pasará). Funciona por <b>modelado</b>: se entrena con casos de respuesta conocida y luego se aplica a casos nuevos.</p>
+    <h4>Técnicas principales</h4>
+    <div class="grid3">
+      <div class="note"><span class="t">Redes neuronales</span>Imitan las neuronas del cerebro (capas de entrada, ocultas y salida) y aprenden por entrenamiento.</div>
+      <div class="note g"><span class="t">Árboles de decisión</span>Decisiones secuenciales basadas en probabilidades. Muy claros (se regenera el camino) y precisos. Ej: el árbol de juego del Ta‑te‑ti; base de los <b>sistemas expertos</b>.</div>
+      <div class="note a"><span class="t">Algoritmos genéticos</span>Optimización inspirada en la evolución: población de soluciones → selección de las mejores → <b>cruce</b> + <b>mutación</b> → nueva generación, hasta hallar la óptima.</div>
+    </div>
+    <div class="note g"><span class="t">Data Mining vs Estadística</span>La estadística es <b>confirmatoria</b> (prueba hipótesis conocidas); Data Mining es <b>exploratorio</b>: descubre patrones desconocidos.</div>
+  </div>
+</section>
+
+<!-- ================= UNIDAD 12 · REPASO ================= -->
+<section id="u12">
+  <div class="utitle"><div class="unum" style="background:linear-gradient(135deg,#f59e0b,#b45309)">★</div><h2 class="sec">Repaso para el Parcial</h2></div>
+  <p class="lead">Los temas más tomados, ordenados por prioridad, y un banco de 33 preguntas frecuentes para practicar. Tocá cada tarjeta para ver la respuesta.</p>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#f59e0b"></span>Los temas más tomados (por prioridad)</h3>
+    <p>El <b>70%</b> del parcial teórico se concentra en: diferencia <b>Hashing vs Árbol B</b>, <b>Integridad / Vistas / Constraints</b>, ventajas del <b>AVL</b> y del <b>Data Warehouse</b>.</p>
+    <div id="topics-grid" class="grid3"></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#f59e0b"></span>Detalles que valen el 10</h3>
+    <div class="grid2">
+      <div class="note"><span class="t">Complejidad del ABB</span>Peor caso de búsqueda con n niveles = <span class="mono">log₂(n + 1)</span>. Máx. elementos = <span class="mono">grado^niveles − 1</span>.</div>
+      <div class="note g"><span class="t">Estabilidad (memorizar)</span>SÍ estables: Bubble, Selection, Insertion, Merge. NO estables: Quick, Heap, Shell.</div>
+      <div class="note a"><span class="t">Huffman — trampa</span>"El código no puede superar 8 dígitos" → <b>FALSO</b>: no hay límite fijo de bits. Usa 3 estructuras: Tabla, Árbol, Pila.</div>
+      <div class="note r"><span class="t">Siklossy</span>Cada nodo tiene una dirección binaria; la celda <i>link</i> <b>nunca</b> puede apuntar a su propia dirección (un nodo no es hijo de sí mismo).</div>
+      <div class="note"><span class="t">Subselect en el FROM</span>Es <b>antiperformante</b>: obliga a subir todos los datos a RAM secuencialmente y se pierde el uso de índices. Sólo conviene con tablitas estáticas muy chicas.</div>
+      <div class="note g"><span class="t">Tabla autonumérica</span>Columna configurada para que el motor asigne el valor secuencial siguiente (+1) en cada insert → IDs únicos automáticos.</div>
+      <div class="note a"><span class="t">Data Mart vs DW</span>El DW es global y corporativo; el Data Mart se enfoca en <b>un área</b>, con datos resumidos → más barato y rápido de implementar.</div>
+      <div class="note"><span class="t">Implementación estática — desventaja</span>Para altas/bajas intermedias hay que <b>desplazar</b> todos los elementos adyacentes del vector (muy ineficiente).</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#f59e0b"></span>Banco de 33 preguntas frecuentes</h3>
+    <div class="toolbar" id="quiz-filter"></div>
+    <div class="toolbar"><button class="b b-ghost" id="quiz-expand">Abrir todas</button><button class="b b-ghost" id="quiz-collapse">Cerrar todas</button><span class="status" id="quiz-count" style="margin:0 0 0 auto;padding:6px 12px"></span></div>
+    <div id="quiz-list"></div>
+  </div>
+</section>
+
+<!--SECTION_MARKER-->
+</div>
+</main>
+
+<script>
+/* ===================== CORE ===================== */
+const NS='http://www.w3.org/2000/svg';
+function E(tag,a={},kids=[]){const e=document.createElementNS(NS,tag);for(const k in a)e.setAttribute(k,a[k]);(kids||[]).forEach(c=>e.appendChild(c));return e;}
+function mk(parent,vbW,vbH){const s=E('svg',{viewBox:`0 0 ${vbW} ${vbH}`});parent.innerHTML='';parent.appendChild(s);return s;}
+function txt(x,y,t,a={}){return E('text',Object.assign({x,y,'text-anchor':'middle','dominant-baseline':'middle','font-family':'Inter,sans-serif'},a),[document.createTextNode(t)]);}
+function defArrow(svg,id,color){
+  const d=E('defs');const m=E('marker',{id,markerWidth:9,markerHeight:9,refX:8,refY:3,orient:'auto',markerUnits:'strokeWidth'});
+  m.appendChild(E('path',{d:'M0,0 L8,3 L0,6 Z',fill:color}));d.appendChild(m);svg.appendChild(d);
+}
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+function edgePath(a,b,r,curve){
+  if(a===b){const x=a.x,y=a.y;return {d:`M ${x-8} ${y-r+2} C ${x-34} ${y-r-34}, ${x+34} ${y-r-34}, ${x+8} ${y-r+2}`,lx:x,ly:y-r-26};}
+  let dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy);dx/=len;dy/=len;
+  const sx=a.x+dx*r,sy=a.y+dy*r,ex=b.x-dx*(r+2),ey=b.y-dy*(r+2);
+  if(curve){const mx=(sx+ex)/2-dy*curve,my=(sy+ey)/2+dx*curve;return{d:`M ${sx} ${sy} Q ${mx} ${my} ${ex} ${ey}`,lx:mx,ly:my};}
+  return {d:`M ${sx} ${sy} L ${ex} ${ey}`,lx:(sx+ex)/2,ly:(sy+ey)/2};
+}
+
+function drawGraph(host,{nodes,edges,w=420,h=320,r=22,directed=true}){
+  const svg=mk(host,w,h);
+  defArrow(svg,'arr-d','#334155');defArrow(svg,'arr-g','#22c55e');defArrow(svg,'arr-r','#ef4444');defArrow(svg,'arr-b','#2563eb');defArrow(svg,'arr-v','#7c3aed');
+  const idmap={};nodes.forEach(n=>idmap[n.id]=n);
+  const eEls={},nEls={},lblEls={};
+  edges.forEach((e,i)=>{
+    const p=edgePath(idmap[e.from],idmap[e.to],r,e.curve||0);
+    const path=E('path',{d:p.d,fill:'none',stroke:'#334155','stroke-width':2.2});
+    if(directed)path.setAttribute('marker-end','url(#arr-d)');
+    svg.appendChild(path);eEls[e.id||i]=path;
+    if(e.label){const lb=txt(p.lx,p.ly-4,e.label,{'font-size':11,fill:'#1e40af','font-weight':700,'paint-order':'stroke',stroke:'#fff','stroke-width':3});svg.appendChild(lb);lblEls[e.id||i]=lb;}
+  });
+  nodes.forEach(n=>{
+    const g=E('g',{style:'cursor:pointer'});
+    const c=E('circle',{cx:n.x,cy:n.y,r,fill:n.fill||'#fff',stroke:n.stroke||'#1e293b','stroke-width':2.5});
+    const t=txt(n.x,n.y,n.id,{'font-size':15,'font-weight':800,fill:n.tcol||'#1e293b'});
+    g.appendChild(c);g.appendChild(t);svg.appendChild(g);
+    nEls[n.id]={g,c,t};
+  });
+  return {svg,nEls,eEls,lblEls,idmap,nodes,edges};
+}
+
+/* ===================== UNIDAD 1 ===================== */
+function sampleG(){return{
+  nodes:[{id:'a',x:90,y:70},{id:'b',x:330,y:70},{id:'c',x:90,y:250},{id:'d',x:330,y:250}],
+  edges:[
+   {id:'a1',from:'a',to:'a'},
+   {id:'a2',from:'a',to:'b',label:'a2'},
+   {id:'a3',from:'c',to:'a',label:'a3',curve:30},
+   {id:'a4',from:'d',to:'a',label:'a4',curve:0},
+   {id:'a5',from:'b',to:'c',label:'a5',curve:0},
+   {id:'a6',from:'c',to:'d',label:'a6'},
+   {id:'a7',from:'b',to:'d',label:'a7'},
+   {id:'a8',from:'d',to:'b',label:'a8',curve:34}
+  ]};
+}
+
+(function(){
+  const g=sampleG();const G=drawGraph(document.getElementById('grado-svg'),g);
+  const st=document.getElementById('grado-st');
+  function reset(){for(const k in G.eEls){G.eEls[k].setAttribute('stroke','#334155');G.eEls[k].setAttribute('marker-end','url(#arr-d)');G.eEls[k].setAttribute('stroke-width',2.2);}for(const k in G.nEls){G.nEls[k].c.setAttribute('fill','#fff');}}
+  Object.keys(G.nEls).forEach(id=>{
+    G.nEls[id].g.addEventListener('click',()=>{
+      reset();G.nEls[id].c.setAttribute('fill','#dbeafe');
+      let out=0,inn=0;
+      g.edges.forEach((e,i)=>{const el=G.eEls[e.id||i];
+        if(e.from===id){out++;el.setAttribute('stroke','#22c55e');el.setAttribute('stroke-width',3.5);el.setAttribute('marker-end','url(#arr-g)');}
+        if(e.to===id && e.from!==id){inn++;el.setAttribute('stroke','#ef4444');el.setAttribute('stroke-width',3.5);el.setAttribute('marker-end','url(#arr-r)');}
+        if(e.from===id&&e.to===id){out++;inn++;}
+      });
+      st.innerHTML=`Nodo <b>${id}</b> → grado positivo (salen) = <b style="color:#16a34a">${out}</b>, grado negativo (llegan) = <b style="color:#dc2626">${inn}</b>.`;
+    });
+  });
+})();
+
+(function(){
+  const types={
+   libre:{name:'Grafo libre',desc:'No posee aristas (A = {Ø}). Todos los vértices están aislados.',
+     g:{nodes:[{id:'a',x:90,y:70},{id:'b',x:330,y:70},{id:'c',x:90,y:250},{id:'d',x:330,y:250}],edges:[]},dir:false},
+   completo:{name:'Grafo completo',desc:'Contiene TODAS las aristas posibles: cada vértice se conecta con todos (incluido él mismo).',
+     g:{nodes:[{id:'a',x:120,y:70},{id:'b',x:320,y:120},{id:'c',x:200,y:280}],edges:[{from:'a',to:'b'},{from:'b',to:'a',curve:26},{from:'b',to:'c'},{from:'c',to:'b',curve:26},{from:'a',to:'c'},{from:'c',to:'a',curve:26},{from:'a',to:'a'},{from:'b',to:'b'},{from:'c',to:'c'}]},dir:true},
+   regular:{name:'Grafo regular',desc:'Todos los vértices tienen el mismo grado g. Acá cada nodo tiene grado positivo 2.',
+     g:{nodes:[{id:'a',x:90,y:70},{id:'b',x:330,y:70},{id:'c',x:90,y:250},{id:'d',x:330,y:250}],edges:[{from:'a',to:'b'},{from:'b',to:'d'},{from:'d',to:'c'},{from:'c',to:'a'},{from:'a',to:'d'},{from:'b',to:'c'}]},dir:true},
+   simple:{name:'Grafo simple',desc:'A lo sumo UNA arista une dos vértices cualesquiera.',
+     g:{nodes:[{id:'a',x:120,y:70},{id:'b',x:320,y:70},{id:'c',x:120,y:260}],edges:[{from:'a',to:'b'},{from:'a',to:'c'},{from:'b',to:'c'}]},dir:false},
+   complejo:{name:'Grafo complejo',desc:'Puede existir MÁS de un arco entre dos vértices. Todo grafo que no sea simple es complejo.',
+     g:{nodes:[{id:'a',x:120,y:70},{id:'b',x:320,y:70},{id:'c',x:120,y:260},{id:'d',x:320,y:260}],edges:[{from:'a',to:'b',curve:24},{from:'a',to:'b',curve:-24},{from:'a',to:'c'},{from:'b',to:'d'},{from:'c',to:'d'},{from:'a',to:'d'}]},dir:false},
+   complementario:{name:'Grafo complementario (Gᶜ)',desc:'Tiene los MISMOS vértices que G pero exactamente las aristas que le faltan a G para ser completo.',
+     g:{nodes:[{id:'a',x:120,y:70},{id:'b',x:320,y:120},{id:'c',x:200,y:280}],edges:[{from:'a',to:'a'},{from:'a',to:'b'},{from:'c',to:'a'}]},dir:true},
+   conexo:{name:'Grafo conexo',desc:'Para todo par de vértices existe al menos un camino. Desde cualquier nodo se alcanza cualquier otro.',conexo:true,
+     g:{nodes:[{id:'a',x:80,y:80},{id:'c',x:330,y:70},{id:'b',x:120,y:260},{id:'d',x:330,y:240},{id:'e',x:230,y:300}],edges:[{from:'a',to:'c'},{from:'a',to:'b'},{from:'b',to:'c',curve:0},{from:'b',to:'d'},{from:'d',to:'e'}]},dir:true},
+   noconexo:{name:'Grafo no conexo',desc:'Un grupo de vértices queda aislado del resto. Acá {d,e} no se alcanzan desde {a,b,c}.',conexo:true,
+     g:{nodes:[{id:'a',x:80,y:80},{id:'c',x:330,y:70},{id:'b',x:120,y:260},{id:'d',x:340,y:230},{id:'e',x:240,y:300}],edges:[{from:'a',to:'c'},{from:'c',to:'b'},{from:'d',to:'e'}]},dir:true}
+  };
+  const chips=document.getElementById('carac-chips');
+  const order=['libre','completo','regular','simple','complejo','complementario','conexo','noconexo'];
+  let cur=null,G=null,curKey=null;
+  order.forEach(k=>{const b=document.createElement('button');b.className='chip';b.textContent=types[k].name.replace('Grafo ','').replace(' (Gᶜ)','ᶜ');b.onclick=()=>show(k);chips.appendChild(b);});
+  function show(k){
+    curKey=k;[...chips.children].forEach((c,i)=>c.classList.toggle('on',order[i]===k));
+    const t=types[k];cur=JSON.parse(JSON.stringify(t.g));
+    G=drawGraph(document.getElementById('carac-svg'),Object.assign({},cur,{directed:t.dir,w:420,h:340}));
+    document.getElementById('carac-name').textContent=t.name;
+    document.getElementById('carac-desc').textContent=t.desc;
+    document.getElementById('carac-extra').style.display=k==='completo'?'block':'none';
+    if(k==='completo')document.getElementById('carac-extra').innerHTML='<span class="t">Dato</span>Con n vértices dirigidos hay n² arcos posibles (incluyendo bucles).';
+    document.getElementById('carac-conexo').style.display=t.conexo?'block':'none';
+  }
+  document.getElementById('flood-btn').onclick=async()=>{
+    if(!G)return;const adj={};cur.nodes.forEach(n=>adj[n.id]=[]);cur.edges.forEach(e=>adj[e.from].push(e.to));
+    for(const id in G.nEls)G.nEls[id].c.setAttribute('fill','#fff');
+    const seen=new Set();const q=['a'];seen.add('a');
+    const st=document.getElementById('flood-st');
+    while(q.length){const x=q.shift();G.nEls[x].c.setAttribute('fill','#86efac');await sleep(450);(adj[x]||[]).forEach(y=>{if(!seen.has(y)){seen.add(y);q.push(y);}});}
+    const all=cur.nodes.map(n=>n.id);const miss=all.filter(x=>!seen.has(x));
+    miss.forEach(x=>{G.nEls[x].c.setAttribute('fill','#fecaca');});
+    st.innerHTML=miss.length?`Alcanzados desde A: <b>${[...seen].join(', ')}</b>. <b style="color:#dc2626">Aislados: ${miss.join(', ')}</b> → grafo NO conexo.`:`Se alcanzaron <b>todos</b> los nodos → grafo conexo.`;
+  };
+  document.getElementById('flood-reset').onclick=()=>show(curKey);
+  show('completo');
+})();
+
+(function(){
+  const nodes=[{id:'a',x:80,y:60},{id:'c',x:340,y:60},{id:'b',x:80,y:240},{id:'d',x:340,y:240}];
+  const edges=[{id:'a1',from:'a',to:'a'},{id:'a2',from:'a',to:'c'},{id:'a3',from:'a',to:'b'},{id:'a4',from:'b',to:'c'},{id:'a5',from:'b',to:'d'},{id:'a6',from:'c',to:'d'}];
+  const G=drawGraph(document.getElementById('ady-graph'),{nodes,edges,directed:false,w:420,h:300});
+  const ids=['a','b','c','d'];const ad={};ids.forEach(i=>{ad[i]={};ids.forEach(j=>ad[i][j]=0);});
+  edges.forEach(e=>{if(e.from===e.to){ad[e.from][e.to]=2;}else{ad[e.from][e.to]++;ad[e.to][e.from]++;}});
+  let html='<table class="tbl"><tr><th></th>'+ids.map(j=>`<th>${j}</th>`).join('')+'</tr>';
+  ids.forEach(i=>{html+=`<tr><th>${i}</th>`+ids.map(j=>`<td data-cell="${i}${j}">${ad[i][j]}</td>`).join('')+'</tr>';});
+  html+='</table>';document.getElementById('ady-matrix').innerHTML=html;
+  edges.forEach((e,i)=>{const path=G.eEls[e.id||i];const cells=e.from===e.to?[e.from+e.to]:[e.from+e.to,e.to+e.from];
+    path.style.cursor='pointer';
+    path.addEventListener('mouseenter',()=>{path.setAttribute('stroke','#2563eb');path.setAttribute('stroke-width',4);cells.forEach(c=>document.querySelector(`[data-cell="${c}"]`)?.classList.add('hl'));});
+    path.addEventListener('mouseleave',()=>{path.setAttribute('stroke','#334155');path.setAttribute('stroke-width',2.2);cells.forEach(c=>document.querySelector(`[data-cell="${c}"]`)?.classList.remove('hl'));});
+  });
+  let h2='<table class="tbl"><tr><th></th>'+edges.map(e=>`<th>${e.id}</th>`).join('')+'</tr>';
+  ids.forEach(i=>{h2+=`<tr><th>${i}</th>`+edges.map(e=>{let v=0;if(e.from===e.to&&e.from===i)v=3;else if(e.from===i)v=1;else if(e.to===i)v=2;return `<td>${v}</td>`;}).join('')+'</tr>';});
+  h2+='</table>';document.getElementById('inc-matrix').innerHTML=h2;
+})();
+
+(function(){
+  // grafo de referencia: a->b(1), a->c(2), b->c(3)
+  drawGraph(document.getElementById('din-ref'),{nodes:[{id:'a',x:55,y:40},{id:'b',x:190,y:40},{id:'c',x:120,y:140}],edges:[{from:'a',to:'b',label:'1'},{from:'a',to:'c',label:'2'},{from:'b',to:'c',label:'3'}],w:250,h:185,r:18});
+  const host=document.getElementById('din-svg');const st=document.getElementById('din-st');const chips=document.getElementById('din-chips');
+  const opts=[['lista','Lista de adyacencia'],['grado','Grado fijo'],['pfaltz','Pfaltz']];
+  let curd='lista';
+  opts.forEach(([k,n])=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.onclick=()=>{curd=k;render();[...chips.children].forEach((c,i)=>c.classList.toggle('on',opts[i][0]===k));};chips.appendChild(b);});
+  function arrow(svg,x1,y1,x2,y2,col='#334155'){
+    const id='ad'+col.replace('#','');if(!svg.querySelector('#'+id)){const d=E('defs');const m=E('marker',{id,markerWidth:8,markerHeight:8,refX:7,refY:3,orient:'auto'});m.appendChild(E('path',{d:'M0,0 L7,3 L0,6 Z',fill:col}));d.appendChild(m);svg.appendChild(d);}
+    svg.appendChild(E('path',{d:`M ${x1} ${y1} L ${x2} ${y2}`,stroke:col,'stroke-width':2,fill:'none','marker-end':`url(#${id})`}));
+  }
+  function vbox(svg,x,y,label){const w=44;svg.appendChild(E('rect',{x,y,width:w,height:34,rx:6,fill:'#1e293b'}));svg.appendChild(txt(x+w/2,y+17,label,{'font-size':14,'font-weight':800,fill:'#fff'}));return{x,y,w,cx:x+w/2,cy:y+17};}
+  function abox(svg,x,y,title,dest,col){const w=92,h=46;svg.appendChild(E('rect',{x,y,width:w,height:h,rx:6,fill:'#fff',stroke:col||'#7c3aed','stroke-width':2}));svg.appendChild(E('rect',{x,y,width:w,height:18,rx:6,fill:col||'#7c3aed'}));svg.appendChild(txt(x+w/2,y+9,title,{'font-size':10.5,'font-weight':800,fill:'#fff'}));svg.appendChild(txt(x+w/2,y+33,dest,{'font-size':11,'font-weight':700,fill:'#334155'}));return{x,y,w,h,cx:x+w/2};}
+  function render(){
+    const svg=mk(host,660,260);
+    if(curd==='lista'){
+      st.innerHTML='Lista vertical de <b>vértices</b>; cada uno apunta a la <b>sublista de arcos que SALEN</b> de él. Recorré: <b>a</b> tiene 2 arcos (→b, →c), <b>b</b> tiene 1 (→c), <b>c</b> ninguno.';
+      const vy=[30,110,190];['a','b','c'].forEach((id,i)=>vbox(svg,30,vy[i],id));
+      arrow(svg,52,64,52,110);arrow(svg,52,144,52,190); // next entre vértices
+      // a -> arco→b -> arco→c
+      const a1=abox(svg,130,26,'arco 1','→ b','#16a34a');arrow(svg,74,47,130,49);
+      const a2=abox(svg,270,26,'arco 2','→ c','#16a34a');arrow(svg,a1.x+a1.w,49,270,49);svg.appendChild(txt(a2.x+a2.w+26,49,'null',{'font-size':11,'font-weight':700,fill:'#94a3b8'}));
+      const a3=abox(svg,130,106,'arco 3','→ c','#16a34a');arrow(svg,74,127,130,129);svg.appendChild(txt(a3.x+a3.w+26,129,'null',{'font-size':11,'font-weight':700,fill:'#94a3b8'}));
+      svg.appendChild(txt(74,209,'c → null (no tiene arcos salientes)',{'font-size':11,fill:'#64748b','text-anchor':'start'}));
+    } else if(curd==='grado'){
+      st.innerHTML='Como el grafo tiene <b>grado 2</b> (a lo sumo 2 arcos por nodo), cada vértice guarda <b>2 punteros fijos</b> (Dir 1, Dir 2) + <code class="inline">next</code>. <b>Limitación:</b> el arco es sólo un puntero → no puede guardar atributos de la relación.';
+      const data=[['a','b','c'],['b','c','null'],['c','null','null']];const vy=[20,110,200];
+      data.forEach((row,i)=>{const y=vy[i];const w=210;svg.appendChild(E('rect',{x:40,y,width:w,height:66,rx:8,fill:'#fff',stroke:'#1e293b','stroke-width':2}));
+        svg.appendChild(E('rect',{x:40,y,width:w,height:22,rx:8,fill:'#1e293b'}));svg.appendChild(txt(40+w/2,y+11,'Vértice '+row[0]+' + atributos',{'font-size':11,'font-weight':800,fill:'#fff'}));
+        ['Dir 1: '+row[1],'Dir 2: '+row[2]].forEach((t,j)=>{svg.appendChild(E('rect',{x:40+105*j,y:y+22,width:105,height:24,fill:'#eff6ff',stroke:'#cbd5e1'}));svg.appendChild(txt(40+105*j+52,y+34,t,{'font-size':11,'font-weight':700,fill:'#1e40af'}));});
+        svg.appendChild(E('rect',{x:40,y:y+46,width:w,height:20,fill:'#f1f5f9',stroke:'#cbd5e1'}));svg.appendChild(txt(40+w/2,y+56,'next →',{'font-size':10.5,'font-weight':700}));
+        if(i<2)arrow(svg,145,y+66,145,vy[i+1]);});
+      svg.appendChild(txt(330,120,'Cada "Dir" apunta directo al',{'font-size':12,fill:'#64748b','text-anchor':'start'}));
+      svg.appendChild(txt(330,140,'vértice destino (no a un nodo-arco).',{'font-size':12,fill:'#64748b','text-anchor':'start'}));
+    } else {
+      st.innerHTML='<b>Pfaltz:</b> un mismo <b>nodo-arco</b> pertenece a DOS listas a la vez (no se duplica). Ejemplo con el <b>arco 3 (b→c)</b>: está en la lista de <span style="color:#16a34a;font-weight:700">salientes de b</span> y en la de <span style="color:#dc2626;font-weight:700">entrantes de c</span>.';
+      const b=vbox(svg,40,40,'b');svg.appendChild(txt(62,28,'1er saliente',{'font-size':10,fill:'#16a34a','font-weight':700}));
+      const c=vbox(svg,40,180,'c');svg.appendChild(txt(62,232,'1er entrante',{'font-size':10,fill:'#dc2626','font-weight':700}));
+      // nodo arco grande en el centro
+      const ax=260,ay=70,aw=240,ah=120;
+      svg.appendChild(E('rect',{x:ax,y:ay,width:aw,height:ah,rx:8,fill:'#fff',stroke:'#7c3aed','stroke-width':2.5}));
+      svg.appendChild(E('rect',{x:ax,y:ay,width:aw,height:22,rx:8,fill:'#7c3aed'}));svg.appendChild(txt(ax+aw/2,ay+11,'NODO ARCO 3 (b → c)',{'font-size':11,'font-weight':800,fill:'#fff'}));
+      [['ledge','→ apunta al ORIGEN (b)','#fef3c7'],['rlink','próximo SALIENTE de b: null','#dcfce7'],['llink','próximo ENTRANTE a c: null','#fee2e2'],['→ destino','apunta a c','#dbeafe']].forEach((f,i)=>{
+        svg.appendChild(E('rect',{x:ax,y:ay+22+24.5*i,width:aw,height:24.5,fill:f[2],stroke:'#cbd5e1'}));
+        svg.appendChild(txt(ax+8,ay+22+24.5*i+12,f[0],{'font-size':11,'font-weight':800,fill:'#334155','text-anchor':'start'}));
+        svg.appendChild(txt(ax+92,ay+22+24.5*i+12,f[1],{'font-size':9.5,fill:'#475569','text-anchor':'start'}));
+      });
+      arrow(svg,b.x+b.w,b.cy+6,ax,ay+34,'#16a34a'); // b.saliente -> arco
+      arrow(svg,c.x+c.w,c.cy-6,ax,ay+ah-12,'#dc2626'); // c.entrante -> arco
+      arrow(svg,ax,ay+34,b.x+b.w,b.cy+6,'#7c3aed'); // ledge -> origen b
+      svg.appendChild(txt(330,232,'1 solo nodo, 2 listas: ahorra memoria.',{'font-size':11,fill:'#7c3aed','font-weight':700,'text-anchor':'start'}));
+    }
+  }
+  render();[...chips.children][0].classList.add('on');
+})();
+
+/* Camino / Paso / Ciclo */
+(function(){
+  const base=()=>({nodes:[{id:'a',x:42,y:42},{id:'b',x:170,y:42},{id:'c',x:170,y:140},{id:'d',x:42,y:140}],
+    edges:[{id:'ab',from:'a',to:'b'},{id:'bc',from:'b',to:'c'},{id:'cd',from:'c',to:'d'},{id:'da',from:'d',to:'a'},{id:'ac',from:'a',to:'c',curve:-28}]});
+  function paint(hostId,ids,col){const G=drawGraph(document.getElementById(hostId),Object.assign(base(),{w:215,h:185,r:17}));ids.forEach(id=>{const e=G.eEls[id];if(e){e.setAttribute('stroke',col);e.setAttribute('stroke-width',4.5);}});}
+  paint('cpc-camino',['da','cd'],'#2563eb'); // a–d–c: usa los arcos AL REVÉS
+  paint('cpc-paso',['ac'],'#d97706');
+  paint('cpc-ciclo',['ab','bc','cd','da'],'#16a34a');
+})();
+function graphHier(){return{
+  nodes:[{id:'A',x:215,y:40},{id:'B',x:115,y:130},{id:'C',x:330,y:130},{id:'D',x:55,y:225},{id:'E',x:185,y:225},{id:'F',x:330,y:225},{id:'G',x:185,y:315}],
+  edges:[{from:'A',to:'B'},{from:'A',to:'C'},{from:'B',to:'D'},{from:'B',to:'E'},{from:'C',to:'F'},{from:'E',to:'G'},{from:'F',to:'G'}]
+};}
+function buildTraversal(){return {A:['B','C'],B:['D','E'],C:['F'],D:[],E:['G'],F:['G'],G:[]};}
+const SCOL={front:['#dbeafe','#3b82f6'],cur:['#fde68a','#d97706'],done:['#e0e7ff','#6366f1'],dead:['#fecaca','#dc2626'],goal:['#bbf7d0','#16a34a']};
+function makeSearch(prefix,mode){
+  const g=graphHier();const G=drawGraph(document.getElementById(prefix+'-svg'),Object.assign({},g,{w:430,h:370}));
+  const adj=buildTraversal();const start='A',goal='G';
+  let stack,queue,visited,parent,nodeState,edgeUsed,solEdges,done;
+  function edgeEl(from,to){let el=null;g.edges.forEach((e,i)=>{if(e.from===from&&e.to===to)el=G.eEls[e.id||i];});return el;}
+  function paint(){
+    for(const id in G.nEls){const s=nodeState[id];const c=G.nEls[id].c;if(s){c.setAttribute('fill',SCOL[s][0]);c.setAttribute('stroke',SCOL[s][1]);}else{c.setAttribute('fill','#fff');c.setAttribute('stroke','#1e293b');}}
+    for(const k in G.eEls){G.eEls[k].setAttribute('stroke','#cbd5e1');G.eEls[k].setAttribute('stroke-width',2);}
+    edgeUsed.forEach(key=>{const p=key.split('>');const el=edgeEl(p[0],p[1]);if(el){el.setAttribute('stroke','#3b82f6');el.setAttribute('stroke-width',3.5);}});
+    if(solEdges)solEdges.forEach(key=>{const p=key.split('>');const el=edgeEl(p[0],p[1]);if(el){el.setAttribute('stroke','#16a34a');el.setAttribute('stroke-width',4.5);}});
+  }
+  function drawFrontier(){
+    const el=document.getElementById(prefix+(mode==='dfs'?'-stack':'-queue'));el.innerHTML='';
+    const arr=mode==='dfs'?stack.map(o=>o.node):queue;
+    arr.forEach(n=>{const d=document.createElement('div');d.className='cell';d.textContent=n;el.appendChild(d);});
+  }
+  function reset(){
+    visited=new Set();parent={};nodeState={};edgeUsed=new Set();solEdges=null;done=false;
+    if(mode==='dfs')stack=[{node:start,it:0}];else queue=[start];
+    visited.add(start);nodeState[start]='front';paint();drawFrontier();
+    document.getElementById(prefix+'-st').innerHTML=`Listo. Buscamos un paso de <b>${start}</b> a <b>${goal}</b>.`;
+  }
+  function success(path){done=true;solEdges=[];for(let i=0;i<path.length-1;i++)solEdges.push(path[i]+'>'+path[i+1]);path.forEach(n=>nodeState[n]='goal');paint();drawFrontier();
+    document.getElementById(prefix+'-st').innerHTML=`<b style="color:#16a34a">¡Paso encontrado!</b> Camino: <b>${path.join(' → ')}</b>.`;}
+  function step(){
+    if(done)return false;const st=document.getElementById(prefix+'-st');
+    if(mode==='dfs'){
+      if(!stack.length){done=true;st.innerHTML='Pila vacía → no existe paso.';return false;}
+      const top=stack[stack.length-1],node=top.node;
+      for(const id in nodeState)if(nodeState[id]==='cur')nodeState[id]='front';
+      nodeState[node]='cur';
+      if(node===goal){success(stack.map(o=>o.node));return false;}
+      const nbrs=adj[node];
+      if(top.it<nbrs.length){
+        const nxt=nbrs[top.it];top.it++;
+        if(visited.has(nxt)){paint();drawFrontier();st.innerHTML=`<b>${nxt}</b> ya fue visitado → se descarta.`;return true;}
+        visited.add(nxt);edgeUsed.add(node+'>'+nxt);nodeState[node]='front';stack.push({node:nxt,it:0});nodeState[nxt]='cur';
+        st.innerHTML=`Desde <b>${node}</b> bajamos a <b>${nxt}</b> (apilar). DFS se hunde por la primera rama.`;
+      }else{stack.pop();nodeState[node]='dead';st.innerHTML=`<b>${node}</b> no tiene vecinos nuevos → <b style="color:#dc2626">backtrack</b> (desapilar) y probar otra rama.`;}
+      paint();drawFrontier();return true;
+    }else{
+      if(!queue.length){done=true;st.innerHTML='Cola vacía → no existe paso.';return false;}
+      const node=queue.shift();
+      for(const id in nodeState)if(nodeState[id]==='cur')nodeState[id]='done';
+      nodeState[node]='cur';
+      if(node===goal){const path=[goal];let p=node;while(parent[p]!==undefined){p=parent[p];path.unshift(p);}success(path);return false;}
+      const added=[];adj[node].forEach(nx=>{if(!visited.has(nx)){visited.add(nx);parent[nx]=node;queue.push(nx);edgeUsed.add(node+'>'+nx);nodeState[nx]='front';added.push(nx);}});
+      st.innerHTML=`Sacamos <b>${node}</b> de la cola y encolamos sus vecinos: <b>${added.length?added.join(', '):'(ninguno)'}</b>. BFS explora por niveles.`;
+      paint();drawFrontier();return true;
+    }
+  }
+  document.getElementById(prefix+'-step').onclick=step;
+  document.getElementById(prefix+'-reset').onclick=reset;
+  document.getElementById(prefix+'-play').onclick=async function(){this.disabled=true;reset();await sleep(300);while(step())await sleep(850);this.disabled=false;};
+  reset();
+}
+makeSearch('dfs','dfs');
+makeSearch('bfs','bfs');
+
+(function(){
+  const nodes=[{id:'a',x:90,y:70},{id:'b',x:330,y:70},{id:'c',x:90,y:250},{id:'d',x:330,y:250}];
+  const edges=[{from:'a',to:'b',label:'1'},{from:'b',to:'c',label:'4'},{from:'b',to:'d',label:'6'},{from:'c',to:'a',label:'3',curve:30},{from:'d',to:'a',label:'2'},{from:'d',to:'b',label:'7',curve:34}];
+  drawGraph(document.getElementById('fw-graph'),{nodes,edges,w:420,h:320});
+  const ids=['a','b','c','d'];const INF=Infinity;
+  function fresh(){const m={};ids.forEach(i=>{m[i]={};ids.forEach(j=>m[i][j]=i===j?0:INF);});m.a.b=1;m.b.c=4;m.b.d=6;m.c.a=3;m.d.a=2;m.d.b=7;return m;}
+  let M,k;
+  function render(changed){
+    let h='<table class="tbl"><tr><th></th>'+ids.map(j=>`<th>${j}</th>`).join('')+'</tr>';
+    ids.forEach(i=>{h+=`<tr><th>${i}</th>`+ids.map(j=>{const v=M[i][j];const hl=changed&&changed.some(c=>c[0]===i&&c[1]===j)?' class="hl"':'';return `<td${hl}>${v===INF?'inf':v}</td>`;}).join('')+'</tr>';});
+    h+='</table>';document.getElementById('fw-matrix').innerHTML=h;
+  }
+  function reset(){M=fresh();k=0;render();document.getElementById('fw-st').innerHTML='Matriz inicial: distancias directas. <code class="inline">inf</code> = sin camino directo.';document.getElementById('fw-step').disabled=false;}
+  document.getElementById('fw-step').onclick=()=>{
+    if(k>=ids.length){return;}
+    const mid=ids[k];const changed=[];
+    ids.forEach(i=>ids.forEach(j=>{if(M[i][mid]+M[mid][j]<M[i][j]){M[i][j]=M[i][mid]+M[mid][j];changed.push([i,j]);}}));
+    render(changed);k++;
+    document.getElementById('fw-st').innerHTML=changed.length?`Intermedio <b>${mid}</b>: mejoramos ${changed.map(c=>c[0]+'→'+c[1]).join(', ')} (en amarillo).`:`Intermedio <b>${mid}</b>: no mejora ningún camino.`;
+    if(k>=ids.length){document.getElementById('fw-step').disabled=true;document.getElementById('fw-st').innerHTML+=' <b style="color:#16a34a">Listo: matriz de mínimos.</b>';}
+  };
+  document.getElementById('fw-reset').onclick=reset;
+  reset();
+})();
+
+/* ===================== MODULES ===================== */
+
+/* ---- Tree helpers (binary, inorder layout) ---- */
+function layoutBin(root,o={}){
+  const xgap=o.xgap||46,ygap=o.ygap||66,x0=o.x0||30,y0=o.y0||34;
+  const nodes=[],edges=[];let col=0;const map={};
+  (function rec(n,d){if(!n)return;rec(n.l,d+1);n._x=x0+(col++)*xgap;n._y=y0+d*ygap;nodes.push(n);map[n.id]=n;if(n.l)edges.push([n,n.l]);if(n.r)edges.push([n,n.r]);rec(n.r,d+1);})(root,0);
+  return {nodes,edges,map};
+}
+function drawBin(host,root,o={}){
+  const lay=layoutBin(root,o);
+  const W=o.w||Math.max(...lay.nodes.map(n=>n._x))+40;
+  const H=o.h||Math.max(...lay.nodes.map(n=>n._y))+40;
+  const svg=mk(host,W,H);const nEls={},eEls={};
+  lay.edges.forEach(([a,b])=>{const ln=E('line',{x1:a._x,y1:a._y,x2:b._x,y2:b._y,stroke:'#94a3b8','stroke-width':2});svg.appendChild(ln);eEls[a.id+b.id]=ln;});
+  lay.nodes.forEach(n=>{const r=o.r||19;const g=E('g',{style:'cursor:pointer'});
+    const c=E('circle',{cx:n._x,cy:n._y,r,fill:n.ghost?'#fff':'#dbeafe',stroke:n.ghost?'#cbd5e1':'#2563eb','stroke-width':2});
+    if(n.ghost)c.setAttribute('stroke-dasharray','4 3');
+    const t=txt(n._x,n._y,n.label!=null?n.label:n.id,{'font-size':13,'font-weight':700,fill:n.ghost?'#cbd5e1':'#1e3a8a'});
+    g.appendChild(c);g.appendChild(t);svg.appendChild(g);nEls[n.id]={g,c,t,n};});
+  return {svg,nEls,eEls,lay};
+}
+
+/* ===================== UNIDAD 2 ===================== */
+/* Stack */
+(function(){
+  let s=[5,2];const view=document.getElementById('stk-view');const st=document.getElementById('stk-st');
+  function render(top){view.innerHTML='';s.forEach((v,i)=>{const d=document.createElement('div');d.className='cell';d.style.width='90px';if(i===s.length-1)d.classList.add('cur');d.textContent=v;view.appendChild(d);});
+    if(s.length){const lbl=document.createElement('div');lbl.style.cssText='font-size:11px;color:#d97706;font-weight:700';lbl.textContent='▲ TOPE';view.appendChild(lbl);} }
+  document.getElementById('stk-push').onclick=()=>{const v=document.getElementById('stk-in').value||'?';s.push(v);render();st.innerHTML=`Push <b>${v}</b> → entra por el tope.`;};
+  document.getElementById('stk-pop').onclick=()=>{if(!s.length){st.textContent='Pila vacía.';return;}const v=s.pop();render();st.innerHTML=`Pop <b>${v}</b> → sale el último que entró (LIFO).`;};
+  document.getElementById('stk-rst').onclick=()=>{s=[5,2];render();st.textContent='Reiniciada.';};
+  render();
+})();
+/* Queue */
+(function(){
+  let q=[3,1,2];const view=document.getElementById('q-view');const st=document.getElementById('q-st');
+  function render(){view.innerHTML='';q.forEach((v,i)=>{const d=document.createElement('div');d.className='cell';d.style.width='66px';if(i===0)d.classList.add('cur');d.textContent=v;view.appendChild(d);});}
+  document.getElementById('q-enq').onclick=()=>{const v=document.getElementById('q-in').value||'?';q.push(v);render();st.innerHTML=`Encolar <b>${v}</b> → entra al fondo (será el último en salir).`;};
+  document.getElementById('q-deq').onclick=()=>{if(!q.length){st.textContent='Cola vacía.';return;}const v=q.shift();render();st.innerHTML=`Desencolar <b>${v}</b> → sale el más antiguo (FIFO).`;};
+  document.getElementById('q-rst').onclick=()=>{q=[3,1,2];render();st.textContent='Reiniciada.';};
+  render();
+})();
+/* Lists */
+(function(){
+  const host=document.getElementById('list-svg');const st=document.getElementById('list-st');const chips=document.getElementById('list-chips');
+  const opts=[['lineal','Lista lineal'],['circular','Lista circular'],['doble','Doblemente enlazada']];let cur='lineal';
+  opts.forEach(([k,n])=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.onclick=()=>{cur=k;render();[...chips.children].forEach((c,i)=>c.classList.toggle('on',opts[i][0]===k));};chips.appendChild(b);});
+  function defm(svg,id,col){if(svg.querySelector('#'+id))return;const d=E('defs');const m=E('marker',{id,markerWidth:8,markerHeight:8,refX:7,refY:3,orient:'auto'});m.appendChild(E('path',{d:'M0,0 L7,3 L0,6 Z',fill:col}));d.appendChild(m);svg.appendChild(d);}
+  function box(svg,x,y,val,two){const w=two?116:92,datoW=two?60:64;
+    const px=two?x+28:x; // dato start
+    svg.appendChild(E('rect',{x,y,width:w,height:44,rx:6,fill:'#fff',stroke:'#1e293b','stroke-width':2}));
+    if(two){svg.appendChild(E('line',{x1:x+28,y1:y,x2:x+28,y2:y+44,stroke:'#cbd5e1'}));svg.appendChild(txt(x+14,y+22,'prev',{'font-size':9,fill:'#94a3b8'}));}
+    svg.appendChild(E('line',{x1:px+datoW,y1:y,x2:px+datoW,y2:y+44,stroke:'#cbd5e1'}));
+    svg.appendChild(txt(px+datoW/2,y+22,val,{'font-size':15,'font-weight':700}));
+    svg.appendChild(E('circle',{cx:px+datoW+(two?14:14),cy:y+22,r:3,fill:'#334155'}));
+    return{x,y,w,nextX:px+datoW+(two?14:14),prevX:two?x+14:x,cx:x+w/2};}
+  function arr(svg,x1,y1,x2,y2,col){defm(svg,'la'+col.replace('#',''),col);svg.appendChild(E('path',{d:`M ${x1} ${y1} L ${x2} ${y2}`,stroke:col,'stroke-width':2,fill:'none','marker-end':`url(#la${col.replace('#','')})`}));}
+  function render(){
+    const two=cur==='doble';const H=cur==='circular'?170:(two?150:120);
+    const svg=mk(host,560,H);const vals=[15,2,13];const y=44;const my=y+22;const w=two?116:92;const gap=two?44:60;
+    const xs=[70];for(let i=1;i<3;i++)xs.push(xs[i-1]+w+gap);
+    svg.appendChild(txt(24,my,'F',{'font-size':14,'font-weight':800,fill:'#2563eb'}));
+    arr(svg,34,my,xs[0]-3,my,'#2563eb');
+    const bs=vals.map((v,i)=>box(svg,xs[i],y,v,two));
+    for(let i=0;i<vals.length-1;i++){arr(svg,bs[i].nextX,my,xs[i+1]-3,my,'#334155');
+      if(two)arr(svg,bs[i+1].prevX,y+44,bs[i].x+bs[i].w+ -2,y+44,'#94a3b8');}
+    if(cur==='lineal'){const lx=bs[2].nextX;svg.appendChild(E('line',{x1:lx,y1:my,x2:lx+26,y2:my,stroke:'#334155','stroke-width':2}));svg.appendChild(E('line',{x1:lx+26,y1:my-9,x2:lx+26,y2:my+9,stroke:'#334155','stroke-width':2}));svg.appendChild(txt(lx+40,my,'NULL',{'font-size':11,fill:'#64748b','text-anchor':'start'}));st.innerHTML='<b>Lineal:</b> el último nodo apunta a <b>NULL</b> (fin de la lista).';}
+    else if(cur==='circular'){const lx=bs[2].nextX,fx=bs[0].cx;defm(svg,'lac','#7c3aed');
+      svg.appendChild(E('path',{d:`M ${lx} ${my} C ${lx+70} ${my+90}, ${fx-70} ${my+90}, ${fx} ${y+46}`,stroke:'#7c3aed','stroke-width':2.5,fill:'none','marker-end':'url(#lac)'}));
+      st.innerHTML='<b>Circular:</b> el último nodo, en vez de NULL, apunta de nuevo al <b>primero</b> (la flecha violeta cierra el círculo).';}
+    else{st.innerHTML='<b>Doblemente enlazada:</b> cada nodo tiene un puntero al <b>siguiente</b> (negro, arriba) y otro al <b>anterior</b> (gris, abajo) → se recorre en ambos sentidos.';}
+  }
+  render();[...chips.children][0].classList.add('on');
+})();
+
+/* ===================== UNIDAD 3 ===================== */
+/* tree characteristics gallery */
+(function(){
+  const T={
+    completo:{name:'Árbol completo',desc:'Todos los nodos no-hoja tienen el grado del árbol; el último nivel se completa de izquierda a derecha. NO garantiza que todas las hojas estén al mismo nivel.',
+      t:{id:4,l:{id:2,l:{id:1},r:{id:3}},r:{id:6}}},
+    lleno:{name:'Árbol lleno',desc:'Es completo Y todas sus hojas están en el mismo nivel. Potencia al máximo la búsqueda logarítmica.',
+      t:{id:4,l:{id:2,l:{id:1},r:{id:3}},r:{id:6,l:{id:5},r:{id:7}}}},
+    balanceado:{name:'Árbol balanceado',desc:'Parados en la raíz, la rama izquierda y la derecha tienen la misma cantidad de nodos (o difieren en 1, indivisible).',
+      t:{id:4,l:{id:2,l:{id:1}},r:{id:6,r:{id:3}}}},
+    perfecto:{name:'Perfectamente balanceado',desc:'Está balanceado en TODOS sus nodos (no sólo en la raíz). Resultan con todas las hojas al mismo nivel.',
+      t:{id:4,l:{id:2,l:{id:1},r:{id:3}},r:{id:6,l:{id:5},r:{id:7}}}}
+  };
+  const chips=document.getElementById('treechar-chips');const order=['completo','lleno','balanceado','perfecto'];
+  order.forEach(k=>{const b=document.createElement('button');b.className='chip';b.textContent=T[k].name.replace('Árbol ','');b.onclick=()=>show(k);chips.appendChild(b);});
+  function show(k){[...chips.children].forEach((c,i)=>c.classList.toggle('on',order[i]===k));drawBin(document.getElementById('treechar-svg'),JSON.parse(JSON.stringify(T[k].t)),{h:230,xgap:48});document.getElementById('treechar-name').textContent=T[k].name;document.getElementById('treechar-desc').textContent=T[k].desc;}
+  show('completo');
+})();
+/* growth */
+(function(){
+  const g=document.getElementById('g-range'),p=document.getElementById('p-range');
+  function upd(){const G=+g.value,P=+p.value;document.getElementById('g-val').textContent=G;document.getElementById('p-val').textContent=P;
+    const n=Math.pow(G,P)-1;document.getElementById('grow-num').textContent=n.toLocaleString('es');
+    document.getElementById('grow-formula').textContent=`${G}^${P} − 1 = ${n.toLocaleString('es')}`;
+    document.getElementById('grow-st').innerHTML=`Con grado <b>${G}</b> y <b>${P}</b> niveles, una lista necesitaría hasta ${n.toLocaleString('es')} comparaciones, pero el árbol sólo <b>${P}</b> (búsqueda logarítmica).`;}
+  g.oninput=upd;p.oninput=upd;upd();
+})();
+/* vector mapping */
+(function(){
+  const tree={id:'A',l:{id:'B',l:{id:'D',l:{id:'H'}},r:{id:'E'}},r:{id:'C',r:{id:'G'}}};
+  (function idx(n,i){if(!n)return;n._i=i;idx(n.l,2*i+1);idx(n.r,2*i+2);})(tree,0);
+  const D=drawBin(document.getElementById('vecmap-svg'),tree,{xgap:42});
+  // build vector
+  let max=0;Object.values(D.nEls).forEach(o=>max=Math.max(max,o.n._i));
+  const vec=new Array(max+1).fill(null);Object.values(D.nEls).forEach(o=>vec[o.n._i]=o.n.id);
+  const arrHost=document.getElementById('vecmap-arr');arrHost.innerHTML='';
+  vec.forEach((v,i)=>{const wrap=document.createElement('div');wrap.style.textAlign='center';
+    const idx=document.createElement('div');idx.className='cell idx';idx.textContent=i;
+    const c=document.createElement('div');c.className='cell';c.dataset.i=i;c.textContent=v==null?'∅':v;if(v==null)c.style.color='#cbd5e1';
+    wrap.appendChild(idx);wrap.appendChild(c);arrHost.appendChild(wrap);
+    if(v!=null){c.onmouseenter=()=>hl(v,true);c.onmouseleave=()=>hl(v,false);}});
+  function hl(id,on){const o=D.nEls[id];if(o){o.c.setAttribute('fill',on?'#fde68a':'#dbeafe');o.c.setAttribute('stroke',on?'#d97706':'#2563eb');}const cell=arrHost.querySelector(`[data-i="${o.n._i}"]`);if(cell)cell.classList.toggle('cmp',on);}
+  Object.entries(D.nEls).forEach(([id,o])=>{o.g.onmouseenter=()=>hl(id,true);o.g.onmouseleave=()=>hl(id,false);});
+})();
+/* Knuth */
+(function(){
+  const real={id:'A',l:{id:'B',l:{id:'F'},r:{id:'G',r:{id:'K'}}},r:{id:'C',l:{id:'D'},r:{id:'E'}}}; // already binary-ish for layout of n-ary visual
+  // n-ary "real" tree drawn manually as multiway, binary as knuth
+  const nary={id:'A',children:['B','C','D','E']};
+  let showK=false;
+  function naryDraw(host){
+    const svg=mk(host,460,180);
+    const root={x:230,y:40};svg.appendChild(E('circle',{cx:root.x,cy:root.y,r:19,fill:'#dcfce7',stroke:'#16a34a','stroke-width':2}));svg.appendChild(txt(root.x,root.y,'A',{'font-size':13,'font-weight':700,fill:'#166534'}));
+    const kids=['B','C','D','E'];kids.forEach((k,i)=>{const x=80+i*100,y=130;svg.appendChild(E('line',{x1:root.x,y1:root.y+19,x2:x,y2:y-19,stroke:'#94a3b8','stroke-width':2}));svg.appendChild(E('circle',{cx:x,cy:y,r:19,fill:'#dcfce7',stroke:'#16a34a','stroke-width':2}));svg.appendChild(txt(x,y,k,{'font-size':13,'font-weight':700,fill:'#166534'}));});
+  }
+  function knuthDraw(host){
+    const t={id:'A',l:{id:'B',r:{id:'C',r:{id:'D',r:{id:'E'}}}}};
+    drawBin(host,t,{w:380,h:230,xgap:48});
+  }
+  function render(){if(showK){knuthDraw(document.getElementById('knuth-svg'));document.getElementById('knuth-st').innerHTML='<b>Binario (Knuth):</b> primer hijo (B) a la izquierda; hermanos (C,D,E) encadenados a la derecha. Mismo árbol, ahora representable.';}else{naryDraw(document.getElementById('knuth-svg'));document.getElementById('knuth-st').innerHTML='<b>Árbol real n-ario:</b> A tiene 4 hijos (B, C, D, E). No se puede guardar directo en una estructura binaria.';}}
+  document.getElementById('knuth-toggle').onclick=()=>{showK=!showK;render();};
+  render();
+})();
+/* traversals */
+(function(){
+  const T={id:'E',l:{id:'D',l:{id:'B',l:{id:'A'},r:{id:'C'}}},r:{id:'H',l:{id:'F',r:{id:'G'}}}};
+  const rules={pre:'<b>Preorden (RID):</b> lee la Raíz, luego Izquierda, luego Derecha. Aplicable a árboles no binarios.',
+    in:'<b>Inorden / simétrico (IRD):</b> Izquierda, Raíz, Derecha. Sólo en binarios. Sobre un ABB da los datos ordenados.',
+    post:'<b>Postorden (IDR):</b> Izquierda, Derecha, Raíz. Aplicable a no binarios.',
+    level:'<b>Anchura / orden de nivel:</b> recorre por niveles usando una COLA. No es recursivo.'};
+  function order(mode){const out=[];
+    function pre(n){if(!n)return;out.push(n.id);pre(n.l);pre(n.r);}
+    function ino(n){if(!n)return;ino(n.l);out.push(n.id);ino(n.r);}
+    function pos(n){if(!n)return;pos(n.l);pos(n.r);out.push(n.id);}
+    if(mode==='pre')pre(T);else if(mode==='in')ino(T);else if(mode==='post')pos(T);
+    else{const q=[T];while(q.length){const n=q.shift();out.push(n.id);if(n.l)q.push(n.l);if(n.r)q.push(n.r);}}
+    return out;}
+  const chips=document.getElementById('trav-chips');const ord=[['pre','Preorden'],['in','Inorden'],['post','Postorden'],['level','Anchura']];
+  let mode='pre',seq=[],i=0,D=null,timer=null;
+  ord.forEach(([k,n])=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.onclick=()=>{mode=k;[...chips.children].forEach((c,j)=>c.classList.toggle('on',ord[j][0]===k));reset();};chips.appendChild(b);});
+  function reset(){clearInterval(timer);D=drawBin(document.getElementById('trav-svg'),T,{xgap:44});seq=order(mode);i=0;document.getElementById('trav-out').innerHTML='';document.getElementById('trav-rule').innerHTML=rules[mode];document.getElementById('trav-st').innerHTML='Listo. Output esperado: <b>'+seq.join(' ')+'</b>';}
+  function step(){if(i>=seq.length)return false;const id=seq[i];Object.values(D.nEls).forEach(o=>{if(o.c.getAttribute('fill')==='#fde68a')o.c.setAttribute('fill','#bbf7d0');});D.nEls[id].c.setAttribute('fill','#fde68a');D.nEls[id].c.setAttribute('stroke','#d97706');const d=document.createElement('div');d.className='cell';d.textContent=id;document.getElementById('trav-out').appendChild(d);i++;document.getElementById('trav-st').innerHTML=`Leído <b>${id}</b> (${i}/${seq.length}).`;return i<seq.length;}
+  document.getElementById('trav-step').onclick=step;
+  document.getElementById('trav-reset').onclick=reset;
+  document.getElementById('trav-play').onclick=function(){reset();timer=setInterval(()=>{if(!step())clearInterval(timer);},700);};
+  [...chips.children][0].classList.add('on');reset();
+})();
+
+/* árbol de expresión */
+(function(){
+  const t={id:'-',label:'−',l:{id:'+',label:'+',l:{id:'3',label:'3'},r:{id:'x1',label:'×',l:{id:'5',label:'5'},r:{id:'8',label:'8'}}},r:{id:'x2',label:'×',l:{id:'4',label:'4'},r:{id:'2',label:'2'}}};
+  if(document.getElementById('expr-svg'))drawBin(document.getElementById('expr-svg'),t,{xgap:40});
+})();
+
+/* ===================== UNIDAD 4 ===================== */
+/* ABB — inserción prearmada paso a paso */
+(function(){
+  const SEQ=[14,9,5,6,17,34,4,2,11,19];const st=document.getElementById('abb-st');const host=document.getElementById('abb-svg');
+  let root,i,timer;
+  function ins(v){const path=[];if(!root){root={id:v};return path;}let n=root;while(true){path.push(n.id);if(v<=n.id){if(!n.l){n.l={id:v};break;}n=n.l;}else{if(!n.r){n.r={id:v};break;}n=n.r;}}return path;}
+  function redraw(pathSet,placed){if(!root){const s=mk(host,220,44);s.appendChild(txt(110,22,'(vacío — apretá "Insertar siguiente")',{'font-size':12,fill:'#94a3b8'}));return;}
+    const D=drawBin(host,root,{xgap:42});
+    if(pathSet)pathSet.forEach(id=>{if(D.nEls[id]){D.nEls[id].c.setAttribute('fill','#fde68a');D.nEls[id].c.setAttribute('stroke','#d97706');}});
+    if(placed!=null&&D.nEls[placed]){D.nEls[placed].c.setAttribute('fill','#bbf7d0');D.nEls[placed].c.setAttribute('stroke','#16a34a');}}
+  function reset(){clearInterval(timer);root=null;i=0;redraw();st.innerHTML='Listo. Vamos a insertar: <b>'+SEQ.join(', ')+'</b>.';document.getElementById('abb-step').disabled=false;}
+  function step(){
+    if(i>=SEQ.length)return false;const v=SEQ[i];const path=ins(v);i++;redraw(path,v);
+    st.innerHTML=i===1?`Insertamos <b>${v}</b> → es la <b>raíz</b>.`:`Insertamos <b>${v}</b>: baja comparando por ${path.map(x=>x+(v<=x?'(≤→izq)':'(>→der)')).join(' ')} y queda en verde.`;
+    if(i>=SEQ.length){st.innerHTML+=' <b style="color:#16a34a">Árbol completo</b> (5 niveles → máx 5 comparaciones, vs 10 en una lista).';document.getElementById('abb-step').disabled=true;}
+    return i<SEQ.length;
+  }
+  document.getElementById('abb-step').onclick=step;
+  document.getElementById('abb-reset').onclick=reset;
+  document.getElementById('abb-play').onclick=function(){clearInterval(timer);timer=setInterval(()=>{if(!step())clearInterval(timer);},800);};
+  reset();
+})();
+/* rotation */
+(function(){
+  const unbal={id:60,l:{id:40,l:{id:20,l:{id:15},r:{id:35}},r:{id:50}},r:{id:75}};
+  const bal={id:40,l:{id:20,l:{id:15},r:{id:35}},r:{id:60,l:{id:50},r:{id:75}}};
+  let b=false;function r(){drawBin(document.getElementById('rot-svg'),b?bal:unbal,{xgap:40});document.getElementById('rot-st').innerHTML=b?'<b>Balanceado:</b> el valor medio (40) pasó a ser la raíz; quedó 3 nodos a cada lado.':'<b>Desbalanceado:</b> 5 nodos a la izquierda, 1 a la derecha. La futura raíz (40) está a la izquierda → rotar a la derecha.';}
+  document.getElementById('rot-toggle').onclick=()=>{b=!b;r();};r();
+})();
+
+/* ===================== UNIDAD 5 ===================== */
+(function(){
+  const word='ABRACADABRA';const freq={};[...word].forEach(c=>freq[c]=(freq[c]||0)+1);
+  const chars=Object.keys(freq);
+  let steps,tree,codes,ord;
+  function build(){
+    let oc=0,ac=0;let wk=chars.map(c=>({id:'L'+c,label:c,freq:freq[c],order:oc++}));
+    steps=[];
+    while(wk.length>1){wk.sort((a,b)=>a.freq-b.freq||a.order-b.order);const x=wk.shift(),y=wk.shift();ac++;const name='α'+ac;const p={id:'n'+oc,label:name,freq:x.freq+y.freq,order:oc++,l:x,r:y,internal:true};steps.push({x:x.label,y:y.label,a:name,f:p.freq,snap:wk.map(w=>w.label+':'+w.freq).concat(name+'='+p.freq)});wk.push(p);}
+    tree=wk[0];codes={};(function dfs(n,c){if(!n)return;if(!n.internal){codes[n.label]=c||'0';return;}dfs(n.l,c+'0');dfs(n.r,c+'1');})(tree,'');
+  }
+  build();
+  let i=0;
+  function table(showCodes){let h='<table class="tbl"><tr><th>Status</th><th>Char</th><th>Frec</th><th>Código</th></tr>';
+    chars.sort((a,b)=>freq[b]-freq[a]).forEach(c=>{h+=`<tr><td>${i>0?'✓':'·'}</td><td>${c}</td><td>${freq[c]}</td><td class="mono">${showCodes?codes[c]:'—'}</td></tr>`;});
+    h+='</table>';document.getElementById('huf-table').innerHTML=h;}
+  function reset(){i=0;table(false);mk(document.getElementById('huf-svg'),200,40).appendChild(txt(100,20,'(árbol vacío)',{'font-size':12,fill:'#94a3b8'}));document.getElementById('huf-st').innerHTML=`Texto <b>"${word}"</b>. Frecuencias cargadas. Cada paso combina las 2 frecuencias más chicas.`;document.getElementById('huf-step').disabled=false;}
+  function step(){
+    if(i<steps.length){const s=steps[i];i++;table(false);
+      document.getElementById('huf-st').innerHTML=`Paso ${i}: combinamos <b>${s.x}</b> + <b>${s.y}</b> → nodo intermedio <b>${s.a}</b> (frecuencia ${s.f}). Bosque actual: ${s.snap.join(' · ')}.`;
+      if(i===steps.length){drawBin(document.getElementById('huf-svg'),tree,{xgap:38});table(true);document.getElementById('huf-st').innerHTML+=` <b style="color:#16a34a">Árbol completo.</b> Los <b>αₙ</b> son los nodos intermedios (sumas) que sostienen el árbol; sin ellos no se podría comprimir ni descomprimir. 0=izq, 1=der → la A (más frecuente) tiene el código más corto.`;document.getElementById('huf-step').disabled=true;}
+      return i<steps.length;
+    }return false;}
+  document.getElementById('huf-step').onclick=step;
+  document.getElementById('huf-reset').onclick=reset;
+  document.getElementById('huf-play').onclick=function(){reset();const t=setInterval(()=>{if(!step())clearInterval(t);},900);};
+  reset();
+})();
+
+/* ===================== UNIDAD 6 ===================== */
+(function(){
+  const BASE=[5,3,8,1,9,2,7,4];
+  function rec(){const f=[];return {f,push:(a,cls,note)=>f.push({a:a.slice(),cls:Object.assign({},cls),note})};}
+  const allS=a=>{const o={};a.forEach((_,i)=>o[i]='sorted');return o;};
+  const G={
+   bubble:{name:'Bubble',info:'Compara adyacentes e intercambia. El mayor "burbujea" al final en cada pasada.',gen(a){const t=rec();const s={};for(let i=a.length;i>1;i--){for(let j=0;j<i-1;j++){t.push(a,Object.assign({[j]:'cmp',[j+1]:'cmp'},s),`Comparo ${a[j]} y ${a[j+1]}`);if(a[j+1]<a[j]){[a[j],a[j+1]]=[a[j+1],a[j]];t.push(a,Object.assign({[j]:'cur',[j+1]:'cur'},s),`Intercambio`);}}s[i-1]='sorted';}s[0]='sorted';t.push(a,s,'Ordenado');return t.f;}},
+   selection:{name:'Selection',info:'En cada vuelta busca el mínimo del resto y lo coloca en su posición.',gen(a){const t=rec();const s={};for(let i=0;i<a.length-1;i++){let m=i;for(let j=i+1;j<a.length;j++){t.push(a,Object.assign({[m]:'piv',[j]:'cmp'},s),`¿${a[j]} < ${a[m]}?`);if(a[j]<a[m])m=j;}if(m!==i)[a[i],a[m]]=[a[m],a[i]];s[i]='sorted';t.push(a,Object.assign({},s),`Mínimo (${a[i]}) a posición ${i}`);}s[a.length-1]='sorted';t.push(a,s,'Ordenado');return t.f;}},
+   insertion:{name:'Insertion',info:'Mantiene una parte ordenada a la izquierda e inserta cada nuevo valor en su lugar.',gen(a){const t=rec();const s={0:'sorted'};for(let i=1;i<a.length;i++){let key=a[i],j=i;t.push(a,Object.assign({[i]:'cur'},s),`Marco ${key}`);while(j>0&&a[j-1]>key){a[j]=a[j-1];j--;t.push(a,Object.assign({[j]:'cmp'},s),`Corro a la derecha`);}a[j]=key;for(let k=0;k<=i;k++)s[k]='sorted';t.push(a,Object.assign({},s),`Inserto ${key}`);}t.push(a,s,'Ordenado');return t.f;}},
+   shell:{name:'Shell',info:'Inserción con "saltos" (gap): primero ordena elementos lejanos, luego cercanos.',gen(a){const t=rec();let h=1;while(h<a.length/3)h=h*3+1;for(;h>0;h=Math.floor(h/3)){for(let i=h;i<a.length;i++){let key=a[i],j=i;t.push(a,{[i]:'cur'},`gap=${h}, marco ${key}`);while(j>=h&&a[j-h]>key){a[j]=a[j-h];j-=h;t.push(a,{[j]:'cmp',[j+h]:'cur'},`gap=${h}, comparo lejanos`);}a[j]=key;}}t.push(a,allS(a),'Ordenado');return t.f;}},
+   merge:{name:'Merge',info:'Divide y vencerás: parte en mitades, ordena y fusiona. Siempre O(n·log n).',gen(a){const t=rec();(function ms(lo,hi){if(hi-lo<1)return;const mid=(lo+hi)>>1;ms(lo,mid);ms(mid+1,hi);const tmp=[];let i=lo,j=mid+1;while(i<=mid&&j<=hi){t.push(a,{[i]:'cmp',[j]:'cmp'},`Fusiono: ${a[i]} vs ${a[j]}`);if(a[i]<=a[j])tmp.push(a[i++]);else tmp.push(a[j++]);}while(i<=mid)tmp.push(a[i++]);while(j<=hi)tmp.push(a[j++]);for(let k=0;k<tmp.length;k++)a[lo+k]=tmp[k];const cls={};for(let k=lo;k<=hi;k++)cls[k]='sorted';t.push(a,cls,`Sub-vector [${lo}..${hi}] fusionado`);})(0,a.length-1);return t.f;}},
+   quick:{name:'Quick',info:'Elige un pivot, deja menores a la izquierda y mayores a la derecha; recursivo.',gen(a){const t=rec();(function qs(lo,hi){if(lo>=hi)return;const piv=a[hi];t.push(a,{[hi]:'piv'},`Pivot=${piv}`);let i=lo;for(let j=lo;j<hi;j++){t.push(a,{[hi]:'piv',[j]:'cmp',[i]:'cur'},`¿${a[j]} < ${piv}?`);if(a[j]<piv){[a[i],a[j]]=[a[j],a[i]];i++;}}[a[i],a[hi]]=[a[hi],a[i]];t.push(a,{[i]:'sorted'},`Pivot ${piv} a su lugar (${i})`);qs(lo,i-1);qs(i+1,hi);})(0,a.length-1);t.push(a,allS(a),'Ordenado');return t.f;}},
+   heap:{name:'Heap',info:'Construye un montículo (máx en la raíz) y va extrayendo el máximo al final.',gen(a){const t=rec();const n=a.length;function down(i,size){let L=i,l=2*i+1,r=2*i+2;if(l<size&&a[l]>a[L])L=l;if(r<size&&a[r]>a[L])L=r;if(L!==i){[a[i],a[L]]=[a[L],a[i]];t.push(a,{[i]:'cur',[L]:'cmp'},`Filtrado descendente`);down(L,size);}}for(let i=Math.floor(n/2)-1;i>=0;i--)down(i,n);t.push(a,{},'Montículo construido');const s={};for(let size=n;size>1;){size--;[a[0],a[size]]=[a[size],a[0]];s[size]='sorted';t.push(a,Object.assign({},s),`Máximo a posición ${size}`);down(0,size);}s[0]='sorted';t.push(a,s,'Ordenado');return t.f;}}
+  };
+  const chips=document.getElementById('sort-chips');const keys=Object.keys(G);let cur='bubble',frames=[],i=0,timer=null;
+  keys.forEach(k=>{const b=document.createElement('button');b.className='chip';b.textContent=G[k].name;b.onclick=()=>{cur=k;[...chips.children].forEach((c,j)=>c.classList.toggle('on',keys[j]===k));reset();};chips.appendChild(b);});
+  function draw(fr){const v=document.getElementById('sort-view');v.innerHTML='';const max=Math.max(...fr.a);fr.a.forEach((val,idx)=>{const wrap=document.createElement('div');wrap.style.cssText='display:flex;flex-direction:column;align-items:center;gap:4px';const bar=document.createElement('div');bar.style.cssText=`width:34px;background:#cbd5e1;border-radius:4px 4px 0 0;height:${18+val/max*70}px`;const c=document.createElement('div');c.className='cell '+(fr.cls[idx]||'');c.style.width='34px';c.textContent=val;if(fr.cls[idx]==='cmp')bar.style.background='#93c5fd';if(fr.cls[idx]==='cur')bar.style.background='#fcd34d';if(fr.cls[idx]==='piv')bar.style.background='#c4b5fd';if(fr.cls[idx]==='sorted')bar.style.background='#6ee7b7';wrap.appendChild(bar);wrap.appendChild(c);v.appendChild(wrap);});}
+  function reset(){clearInterval(timer);frames=G[cur].gen(BASE.slice());i=0;draw(frames[0]);document.getElementById('sort-info').innerHTML='<span class="t">'+G[cur].name+'</span>'+G[cur].info;document.getElementById('sort-st').innerHTML=`Listo (${frames.length} pasos).`;}
+  function step(){if(i>=frames.length-1)return false;i++;draw(frames[i]);document.getElementById('sort-st').innerHTML=`Paso ${i}/${frames.length-1}: ${frames[i].note}`;return i<frames.length-1;}
+  document.getElementById('sort-step').onclick=step;
+  document.getElementById('sort-reset').onclick=reset;
+  document.getElementById('sort-play').onclick=function(){clearInterval(timer);timer=setInterval(()=>{if(!step())clearInterval(timer);},420);};
+  [...chips.children][0].classList.add('on');reset();
+})();
+
+/* ===================== UNIDAD 7 ===================== */
+(function(){
+  const M=11;let mode='lineal',table;
+  const chips=document.getElementById('hash-chips');
+  [['lineal','Estático: sondeo lineal'],['chain','Dinámico: encadenamiento']].forEach(([k,n])=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.onclick=()=>{mode=k;[...chips.children].forEach(c=>c.classList.toggle('on',c===b));reset();};chips.appendChild(b);});
+  function reset(){table=mode==='lineal'?Array(M).fill(null):Array.from({length:M},()=>[]);render();document.getElementById('hash-st').innerHTML=`Tabla vacía (M=${M}). h(x)=x mod ${M}.`;}
+  function render(hi){const host=document.getElementById('hash-view');host.innerHTML='';const tbl=document.createElement('table');tbl.className='tbl';tbl.style.maxWidth='420px';tbl.style.margin='0 auto';
+    let head='<tr><th>pos</th><th>'+(mode==='lineal'?'clave':'claves (lista)')+'</th></tr>';let body='';
+    for(let i=0;i<M;i++){const isHi=hi===i;if(mode==='lineal'){body+=`<tr><td>${i}</td><td class="${isHi?'hl':''}" style="font-family:monospace">${table[i]==null?'':table[i]}</td></tr>`;}
+      else{body+=`<tr><td>${i}</td><td class="${isHi?'hl':''}" style="font-family:monospace;text-align:left">${table[i].length?table[i].join(' → '):''}</td></tr>`;}}
+    tbl.innerHTML=head+body;host.appendChild(tbl);}
+  function insert(v){const h=v%M;if(mode==='lineal'){let p=h,probes=0;while(table[p]!==null){if(table[p]===v){document.getElementById('hash-st').innerHTML=`<b>${v}</b> ya estaba.`;return;}p=(p+1)%M;probes++;if(probes>=M){document.getElementById('hash-st').innerHTML='Tabla llena.';return;}}table[p]=v;render(p);
+      document.getElementById('hash-st').innerHTML=probes?`h(${v})=${h} ocupado → <b>colisión</b>. Re-hash (+1) ${probes} vez(es) → posición <b>${p}</b>.`:`h(${v})=${h} libre → guardo en posición <b>${h}</b>.`;}
+    else{const col=table[h].length>0;table[h].push(v);render(h);document.getElementById('hash-st').innerHTML=col?`h(${v})=${h} ocupado → <b>colisión</b>: agrego ${v} a la lista de la posición ${h}.`:`h(${v})=${h} libre → guardo en posición ${h}.`;}}
+  const SEQ=[14,25,36,3,47];let idx=0,timer;
+  function rst(){clearInterval(timer);idx=0;table=mode==='lineal'?Array(M).fill(null):Array.from({length:M},()=>[]);render();document.getElementById('hash-st').innerHTML=`Tabla vacía (M=${M}). Vamos a insertar ${SEQ.join(', ')}.`;document.getElementById('hash-step').disabled=false;}
+  function step(){if(idx>=SEQ.length)return false;insert(SEQ[idx]);idx++;if(idx>=SEQ.length)document.getElementById('hash-step').disabled=true;return idx<SEQ.length;}
+  // sobreescribimos reset() de los chips para reiniciar la secuencia
+  reset=rst;
+  [...chips.children].forEach((b,j)=>b.onclick=()=>{mode=j===0?'lineal':'chain';[...chips.children].forEach(c=>c.classList.toggle('on',c===b));rst();});
+  document.getElementById('hash-step').onclick=step;
+  document.getElementById('hash-play').onclick=function(){clearInterval(timer);timer=setInterval(()=>{if(!step())clearInterval(timer);},850);};
+  document.getElementById('hash-reset').onclick=rst;
+  chips.children[0].classList.add('on');rst();
+})();
+
+/* ===================== UNIDAD 8 ===================== */
+/* split toggle */
+(function(){
+  const host=document.getElementById('bsplit-svg');let after=false;
+  function nodeBox(svg,x,y,keys,col){const cw=34,w=keys.length*cw+8;svg.appendChild(E('rect',{x,y,width:w,height:30,rx:5,fill:'#fff',stroke:col||'#1e293b','stroke-width':2}));keys.forEach((k,i)=>{if(i)svg.appendChild(E('line',{x1:x+4+cw*i,y1:y,x2:x+4+cw*i,y2:y+30,stroke:'#cbd5e1'}));svg.appendChild(txt(x+4+cw*i+cw/2,y+15,k,{'font-size':13,'font-weight':700}));});return{x,y,w,cx:x+w/2};}
+  function line(svg,a,b){svg.appendChild(E('line',{x1:a.cx,y1:a.y+30,x2:b.cx,y2:b.y,stroke:'#94a3b8','stroke-width':1.6}));}
+  function render(){const svg=mk(host,560,200);
+    if(!after){const r=nodeBox(svg,250,20,[4],'#1e293b');const l1=nodeBox(svg,120,120,[1,2]);const l2=nodeBox(svg,330,120,[5,7],'#dc2626');line(svg,r,l1);line(svg,r,l2);
+      svg.appendChild(txt(380,170,'Insertar 6 aquí → ¡hoja llena! (orden 3)',{'font-size':11,fill:'#dc2626','text-anchor':'start'}));
+      document.getElementById('bsplit-st').innerHTML='Estado inicial. La hoja [5,7] está completa. Apretá el botón para insertar 6.';}
+    else{const r=nodeBox(svg,235,20,[4,6],'#16a34a');const l1=nodeBox(svg,90,120,[1,2]);const l2=nodeBox(svg,280,120,[5]);const l3=nodeBox(svg,420,120,[7]);line(svg,r,l1);line(svg,r,l2);line(svg,r,l3);
+      document.getElementById('bsplit-st').innerHTML='<b>SPLIT:</b> [5,6,7] se parte en [5] y [7]; la clave del medio (6) <b>sube al padre</b>. Quedó [4|6] con tres hijos.';}}
+  document.getElementById('bsplit-toggle').onclick=()=>{after=!after;render();};render();
+})();
+/* B+ range search */
+(function(){
+  const host=document.getElementById('bp-svg');const leaves=[[1,2,3],[5,6,7],[9,10,11],[13,14]];const seps=[4,8,12];
+  let keyEls,leafBox,svg;
+  function render(){svg=mk(host,660,250);
+    if(!svg.querySelector('#bpg')){const d=E('defs');const m=E('marker',{id:'bpg',markerWidth:8,markerHeight:8,refX:7,refY:3,orient:'auto'});m.appendChild(E('path',{d:'M0,0 L7,3 L0,6 Z',fill:'#16a34a'}));d.appendChild(m);svg.appendChild(d);}
+    keyEls={};leafBox=[];
+    // root
+    const cw=40,rw=seps.length*cw+8,rx=330-rw/2,ry=18;svg.appendChild(E('rect',{x:rx,y:ry,width:rw,height:30,rx:5,fill:'#fff',stroke:'#1e293b','stroke-width':2}));
+    seps.forEach((k,i)=>{if(i)svg.appendChild(E('line',{x1:rx+4+cw*i,y1:ry,x2:rx+4+cw*i,y2:ry+30,stroke:'#cbd5e1'}));svg.appendChild(txt(rx+4+cw*i+cw/2,ry+15,k,{'font-size':12,'font-weight':700}));});
+    const lw=130,gap=22,total=leaves.length*lw+(leaves.length-1)*gap;let lx=330-total/2;const ly=160;const cxs=[];
+    leaves.forEach((lf,li)=>{const kw=lf.length*30+8;const bx=lx+(lw-kw)/2;svg.appendChild(E('rect',{x:bx,y:ly,width:kw,height:30,rx:5,fill:'#fff',stroke:'#2563eb','stroke-width':2}));
+      lf.forEach((k,i)=>{if(i)svg.appendChild(E('line',{x1:bx+4+30*i,y1:ly,x2:bx+4+30*i,y2:ly+30,stroke:'#dbeafe'}));const t=txt(bx+4+30*i+15,ly+15,k,{'font-size':12,'font-weight':700,fill:'#1e3a8a'});svg.appendChild(t);const rc=E('rect',{x:bx+4+30*i-15,y:ly,width:30,height:30,fill:'transparent'});svg.appendChild(rc);keyEls[k]={t,rc,leaf:li};});
+      leafBox[li]={x:bx,y:ly,w:kw,cx:bx+kw/2};svg.appendChild(E('line',{x1:rx+rw/2,y1:ry+30,x2:bx+kw/2,y2:ly,stroke:'#cbd5e1','stroke-width':1.4}));lx+=lw+gap;});
+    for(let i=0;i<leaves.length-1;i++){svg.appendChild(E('path',{d:`M ${leafBox[i].x+leafBox[i].w} ${ly+15} L ${leafBox[i+1].x} ${ly+15}`,stroke:'#16a34a','stroke-width':2,fill:'none','marker-end':'url(#bpg)'}));}
+  }
+  document.getElementById('bp-go').onclick=async()=>{render();const lo=+document.getElementById('bp-lo').value,hi=+document.getElementById('bp-hi').value;const st=document.getElementById('bp-st');
+    let li=lo<seps[0]?0:lo<seps[1]?1:lo<seps[2]?2:3;
+    st.innerHTML=`Desciendo por la raíz: ${lo} cae en el hijo ${li+1}.`;
+    svg.querySelectorAll('rect').forEach(()=>{});await sleep(500);
+    const found=[];
+    for(let i=li;i<leaves.length;i++){let stop=false;for(const k of leaves[i]){if(k>=lo&&k<=hi){keyEls[k].t.setAttribute('fill','#fff');keyEls[k].rc.setAttribute('fill','#16a34a');found.push(k);await sleep(350);}if(k>hi){stop=true;break;}}if(stop)break;}
+    st.innerHTML=`Rango [${lo}, ${hi}] → encontrados: <b>${found.join(', ')||'(ninguno)'}</b>. Se caminó por los enlaces verdes entre hojas sin volver a subir.`;
+  };
+  document.getElementById('bp-reset').onclick=render;render();
+})();
+
+/* ===================== UNIDAD 9 ===================== */
+(function(){
+  const host=document.getElementById('ansi-svg');const svg=mk(host,560,300);const st=document.getElementById('ansi-st');
+  const info={ext:'<b>Nivel externo:</b> múltiples vistas adaptadas a cada usuario. Se define con el DML (Data Manipulation Language).',con:'<b>Nivel conceptual:</b> estructura lógica global, única, que representa los datos y sus relaciones. Se define con el DDL (Data Definition Language).',int:'<b>Nivel interno / físico:</b> cómo se almacenan físicamente los datos y cómo se accede a ellos.'};
+  function layer(y,label,fill,key,boxes){const g=E('g',{style:'cursor:pointer'});
+    if(boxes){for(let i=0;i<4;i++){g.appendChild(E('rect',{x:60+i*120,y,width:90,height:42,rx:7,fill,stroke:'#2563eb','stroke-width':2}));g.appendChild(txt(105+i*120,y+21,'Vista '+(i+1),{'font-size':12,'font-weight':700,fill:'#1e3a8a'}));}}
+    else{g.appendChild(E('rect',{x:60,y,width:450,height:46,rx:8,fill,stroke:'#1e293b','stroke-width':2}));g.appendChild(txt(285,y+23,label,{'font-size':14,'font-weight':800,fill:'#1e293b'}));}
+    g.onclick=()=>{st.innerHTML=info[key];};svg.appendChild(g);}
+  layer(20,'','#eff6ff','ext',true);
+  layer(120,'Vista común de la BD (DDL conceptual)','#fef9c3','con');
+  layer(210,'Forma física de los datos','#dcfce7','int');
+  svg.appendChild(txt(20,43,'Externo',{'font-size':11,fill:'#64748b','text-anchor':'start','font-weight':700}));
+  svg.appendChild(txt(20,143,'Conceptual',{'font-size':11,fill:'#64748b','text-anchor':'start','font-weight':700}));
+  svg.appendChild(txt(20,233,'Interno',{'font-size':11,fill:'#64748b','text-anchor':'start','font-weight':700}));
+})();
+(function(){
+  const chips=document.getElementById('bk-chips');const host=document.getElementById('bk-svg');const st=document.getElementById('bk-st');let mode='acum';
+  [['acum','Diferencial acumulativo'],['inc','Diferencial incremental']].forEach(([k,n])=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.onclick=()=>{mode=k;[...chips.children].forEach(c=>c.classList.toggle('on',c===b));render();};chips.appendChild(b);});
+  const days=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+  function render(){const svg=mk(host,640,170);if(!svg.querySelector('#bka')){const d=E('defs');const m=E('marker',{id:'bka',markerWidth:8,markerHeight:8,refX:7,refY:3,orient:'auto'});m.appendChild(E('path',{d:'M0,0 L7,3 L0,6 Z',fill:'#7c3aed'}));d.appendChild(m);svg.appendChild(d);}
+    const xs=days.map((_,i)=>40+i*80);const y=90;
+    days.forEach((d,i)=>{const full=i===0||i===7;svg.appendChild(E('rect',{x:xs[i]-22,y,width:44,height:40,rx:6,fill:full?'#fde68a':'#dbeafe',stroke:full?'#d97706':'#2563eb','stroke-width':2}));svg.appendChild(txt(xs[i],y+20,full?'FULL':'Δ',{'font-size':12,'font-weight':800,fill:full?'#92400e':'#1e3a8a'}));svg.appendChild(txt(xs[i],y+58,d,{'font-size':11,fill:'#64748b'}));});
+    for(let i=1;i<=6;i++){const target=mode==='acum'?0:i-1;svg.appendChild(E('path',{d:`M ${xs[i]} ${y} Q ${(xs[i]+xs[target])/2} ${y-50} ${xs[target]} ${y}`,stroke:'#7c3aed','stroke-width':2,fill:'none','marker-end':'url(#bka)'}));}
+    st.innerHTML=mode==='acum'?'<b>Acumulativo:</b> cada día guarda TODAS las novedades desde el último Full → el backup de un día inutiliza al del día anterior.':'<b>Incremental:</b> cada día guarda sólo las novedades respecto al backup <b>anterior</b> → ninguno inutiliza al otro.';}
+  chips.children[0].classList.add('on');render();
+})();
+
+/* ===================== UNIDAD 11 ===================== */
+(function(){
+  const cube=document.getElementById('cube');if(!cube)return;const faces=[['front','Producto','#2563eb',''],['back','','#2563eb','rotateY(180deg) '],['right','Región','#059669','rotateY(90deg) '],['left','','#059669','rotateY(-90deg) '],['top','Tiempo','#d97706','rotateX(90deg) '],['bottom','','#d97706','rotateX(-90deg) ']];
+  faces.forEach(([k,lbl,col,tr])=>{const f=document.createElement('div');f.style.cssText=`position:absolute;width:140px;height:140px;border:2px solid ${col};background:${col}22;display:flex;align-items:center;justify-content:center;font-weight:800;color:${col};font-size:14px;transform:${tr}translateZ(70px)`;f.textContent=lbl;cube.appendChild(f);});
+  let rx=-22,ry=-32;function apply(){cube.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;}
+  document.querySelectorAll('[data-rot]').forEach(b=>b.onclick=()=>{if(b.dataset.rot==='x')rx+=45;else ry+=45;apply();});
+})();
+
+/* ===================== UNIDAD 12 · REPASO ===================== */
+(function(){
+  const topics=[
+   ['Integridad y Constraints','#u9',3,'Reglas que garantizan datos válidos; el constraint es el "candado".'],
+   ['Transacciones y ACID','#u9',3,'Bloque todo-o-nada; A,C,I,D garantizan seguridad.'],
+   ['Vistas (Views) y Seguridad','#u10',3,'Tabla virtual: muestra sólo lo permitido sin dar la tabla real.'],
+   ['Árbol B y B+ (split/fusión/rangos)','#u8',3,'Índice clásico; B+ enlaza hojas → rangos eficientes.'],
+   ['Hashing estático vs dinámico','#u7',3,'Fórmula → posición directa; colisiones por sondeo o lista.'],
+   ['Hashing vs Árbol B','#u8',3,'Hash: clave puntual; Árbol B: orden y rangos.'],
+   ['Quick Sort y Merge Sort','#u6',3,'Recursivos divide y vencerás; Quick rápido en RAM, Merge para disco.'],
+   ['Complejidad computacional','#u6',2,'Medir qué tan lento crece un algoritmo: O(n), O(log n)…'],
+   ['Algoritmo de Huffman','#u5',3,'Compresión: códigos cortos a los más frecuentes.'],
+   ['Árbol AVL y rotaciones','#u4',3,'Árbol que se balancea solo girando nodos.'],
+   ['Árbol lleno vs completo','#u3',2,'Lleno = triángulo perfecto; completo = último nivel a la izquierda.'],
+   ['Recorridos de árboles','#u3',2,'Pre, post e inorden (este da datos ordenados; sólo binarios).'],
+   ['Implementaciones estáticas','#u1',2,'Meter el árbol/grafo en un vector sin punteros dinámicos.'],
+   ['Knuth y Pfaltz','#u1',2,'Knuth: n-ario→binario. Pfaltz: grafos con llink/rlink.'],
+   ['Data Warehouse, Snapshot y OLAP','#u11',3,'BD histórica separada; cubos multidimensionales.']
+  ];
+  const grid=document.getElementById('topics-grid');
+  topics.forEach(([t,u,p,d])=>{const a=document.createElement('a');a.href=u;a.style.cssText='text-decoration:none';
+    const stars='★'.repeat(p)+'<span style="color:#cbd5e1">'+'★'.repeat(3-p)+'</span>';
+    a.innerHTML=`<div class="note" style="border-color:${p===3?'#e11d48':p===2?'#d97706':'#64748b'};margin:0;height:100%"><span class="t" style="display:flex;justify-content:space-between">${t}<span style="font-size:11px">${stars}</span></span>${d} <b style="color:#2563eb">Ver →</b></div>`;
+    grid.appendChild(a);});
+
+  const Q=[
+   ['d','Describa el método de descompresión de Huffman.','Lee el archivo bit por bit. Por cada bit parte de la raíz del árbol y desciende (0=izq, 1=der) hasta llegar a una hoja: ahí decodifica el carácter y vuelve a la raíz para el siguiente bit. Halla los caracteres uno por uno.'],
+   ['d','Algoritmo de baja (eliminación) de un nodo con hijos en un ABB.','No se puede borrar directo. Se busca el sucesor lógico: el mayor de sus hijos menores (más a la derecha de la rama izquierda) o el menor de sus hijos mayores (más a la izquierda de la derecha). Ese valor sube a ocupar el lugar y se borra el nodo duplicado de abajo.'],
+   ['d','Integridad en BD y objetos que la implementan.','Conjunto de reglas que garantizan consistencia, validez y correctitud. Objetos: Constraints (declarativos) principalmente, y de forma activa Triggers, SP, Funciones y Vistas. Tipos: de entidad (PK), referencial (FK) y semántica (dominios/CHECK).'],
+   ['d','¿Qué son las métricas en una tabla de hechos y cómo es su PK?','Las métricas son los atributos numéricos que se suman/analizan (Cantidad, Monto). La PK de la tabla de hechos es una clave COMPUESTA por todas las FKs de sus dimensiones (ej. ID_Fecha + ID_Proveedor + ID_Producto).'],
+   ['d','Hashing por encadenamiento: ¿cómo trata las colisiones?','Cada casilla apunta a una lista enlazada. Ante una colisión NO sondea otra casilla: cuelga el nuevo registro al final de la lista de esa posición.'],
+   ['d','Estructuras exactas del algoritmo de Huffman.','Tres: (1) Tabla/Vector de frecuencias, (2) Árbol binario construido desde las hojas hacia la raíz, (3) Pila para recuperar el código leyendo de la hoja a la raíz (LIFO).'],
+   ['d','Constraint y su relación con la integridad.','Objeto cuya única función es dar integridad: actúa como bloqueo/regla sobre una tabla o columna. Si un INSERT/UPDATE viola la regla, el motor impide el guardado.'],
+   ['d','¿Qué es una tabla temporal? Ejemplo de uso.','Tabla efímera (prefijo #) visible sólo en la sesión actual; no figura en el diccionario de datos. Uso: almacenamiento intermedio en consultas pesadas o ciclos, para no consultar repetidamente la tabla original.'],
+   ['d','Diferencia entre árbol completo y árbol lleno.','Completo: todos los nodos no-hoja tienen el grado del árbol salvo quizá el último nivel, completado de izq. a der. Lleno: es completo y además TODAS las hojas están en el último nivel (triángulo perfecto).'],
+   ['d','¿Para qué sirven los algoritmos de rotación?','Para balancear un árbol desbalanceado tras altas/bajas. Si la futura raíz pesa a la derecha → rotar a izquierda; si pesa a la izquierda → rotar a derecha.'],
+   ['d','Objetivo de los índices y tipos de acceso.','Acelerar la búsqueda sin leer todos los registros. Guardan clave + puntero al dato. Acceso directo (Hash) o secuencial indexado (Árbol B, ideal para rangos).'],
+   ['vf','El Quick Sort no puede ser recursivo.','F','Falso. Quick Sort es recursivo: elige un pivot, particiona y se llama a sí mismo sobre cada subsecuencia.'],
+   ['vf','El Árbol B+ permite búsquedas por rango con claves duplicadas.','V','Verdadero. Guarda todo en las hojas enlazadas horizontalmente → soporta duplicados y rangos eficientes.'],
+   ['vf','Preorden se puede en todo árbol, pero inorden sólo en binarios.','V','Verdadero. Inorden es Izq-Raíz-Der: requiere grado 2.'],
+   ['vf','Un grafo con n nodos y (n−1) arcos siempre es un árbol.','F','Falso. Además debe ser acíclico, dirigido y con un único camino entre cada par de nodos.'],
+   ['vf','Un grafo de un solo nodo siempre es un árbol.','V','Verdadero. Cumple naturalmente las 4 condiciones.'],
+   ['vf','El Árbol B es más performante que el B+ en clave puntual.','F','Falso. En clave puntual rinden similar; el B+ supera al B en rangos.'],
+   ['vf','Quicksort sobre datos desordenados tiene menor complejidad que sobre datos ordenados.','V','Verdadero. Desordenado ≈ mejor caso O(n·log n); ordenado con mal pivot → peor caso O(n²).'],
+   ['vf','El método de "Dobles"/"Cuadrado medio" resuelve las colisiones.','F','Falso. Son funciones para CALCULAR la posición, no para resolver colisiones (eso lo hace el sondeo o el encadenamiento).'],
+   ['vf','Si un ABB es lleno, está automáticamente balanceado.','V','Verdadero. Todas las hojas al mismo nivel → misma cantidad de nodos a cada lado.'],
+   ['vf','El objetivo de Knuth es representar un árbol n-ario en una estructura genérica.','F','Falso. Knuth convierte el n-ario a estrictamente BINARIO para poder almacenarlo.'],
+   ['vf','En un n-ario de 2 niveles, la profundidad máx. en Knuth es n.','F','Falso. Los hermanos se encadenan como hijos derechos, así que la profundidad crece con la cantidad de hermanos, no se acota a n.'],
+   ['d','Modelo ANSI/SPARC y sus tres niveles.','Interno/Físico: cómo se guardan los datos en disco. Conceptual/Lógico: estructura global (tablas, relaciones, constraints) definida por el DBA. Externo: vistas personalizadas que ve cada usuario → independencia de datos.'],
+   ['d','¿Qué es un Snapshot y su rol en un Data Warehouse?','Captura/"foto" de los datos en un momento dado. En el DW congela y extrae info periódicamente para analizar por intervalos sin degradar los sistemas transaccionales en vivo.'],
+   ['d','Diferencie OLTP y OLAP.','OLTP: operatoria diaria, datos actuales/atómicos, normalizado, optimizado para transacciones. OLAP: análisis/decisión, datos históricos/resumidos, desnormalizado (dimensiones), no volátil, optimizado para reportes multidimensionales.'],
+   ['d','¿Qué es una Vista y cómo se relaciona con la seguridad?','Tabla virtual definida por una query; no aloca espacio ni guarda datos. Da seguridad porque permite acceso restringido ocultando datos/estructuras no autorizadas.'],
+   ['d','¿Qué es una tabla temporal y cuándo conviene usarla?','Estructura efímera (#tabla) visible sólo en la sesión actual, fuera del diccionario. Conviene como almacenamiento intermedio en consultas masivas o ciclos.'],
+   ['d','¿Qué son los Metadatos y por qué son esenciales en BI?','"Datos de los datos": procedencia, dominio, reglas de validación, periodicidad, fórmula de cálculo. Automatizan la extracción y permiten interpretar el significado de la información.'],
+   ['d','Defina Data Mart y su diferencia con el Data Warehouse.','El DW es global y corporativo con alto detalle. El Data Mart se enfoca en UN área/departamento con datos resumidos → menor complejidad y costo.'],
+   ['d','Operaciones de Split y Fusión en un Árbol B.','Split (inserción): al llenarse una hoja se divide en dos (menores/mayores) y la clave del medio sube al padre. Fusión (eliminación): si un nodo queda vacío se elimina y se fusiona el hueco, pudiendo provocar bajas en cascada hacia los antecesores.'],
+   ['d','Esquema en Estrella para bases multidimensionales relacionales.','Tabla de Hechos central (métricas; PK = FKs de las dimensiones) rodeada de Tablas de Dimensiones (poco volumen, desnormalizadas, con la info descriptiva).'],
+   ['d','Objetivo de los índices y acceso secuencial vs indexado.','Mantener datos ordenados por clave y acelerar consultas. Secuencial: lee todo en orden de ingreso. Secuencial indexado: localiza y recorre rangos por punteros sin leer todo.'],
+   ['d','Desventaja de la implementación estática (vector) vs dinámica (punteros).','En altas/bajas intermedias el vector obliga a desplazar uno a uno todos los elementos adyacentes para abrir/tapar el hueco; la dinámica sólo reacomoda punteros.']
+  ];
+  const list=document.getElementById('quiz-list');const filt=document.getElementById('quiz-filter');
+  let mode='all';
+  [['all','Todas'],['d','Desarrollo'],['vf','Verdadero / Falso']].forEach(([k,n])=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.onclick=()=>{mode=k;[...filt.children].forEach(c=>c.classList.toggle('on',c===b));render();};filt.appendChild(b);});
+  function render(){list.innerHTML='';let i=0;Q.forEach(q=>{const isVF=q[0]==='vf';if(mode!=='all'&&mode!==q[0])return;i++;
+    const d=document.createElement('details');d.className='qa';
+    const badge=isVF?`<span style="display:inline-block;background:${q[2]==='V'?'#16a34a':'#dc2626'};color:#fff;border-radius:5px;padding:1px 7px;font-size:11px;margin-right:6px">${q[2]}</span>`:`<span style="display:inline-block;background:#2563eb;color:#fff;border-radius:5px;padding:1px 7px;font-size:11px;margin-right:6px">DEV</span>`;
+    d.innerHTML=`<summary>${badge}${q[1]}</summary><div class="ans">${isVF?q[3]:q[2]}</div>`;
+    list.appendChild(d);});
+    document.getElementById('quiz-count').textContent=`${i} pregunta(s)`;}
+  document.getElementById('quiz-expand').onclick=()=>list.querySelectorAll('details').forEach(d=>d.open=true);
+  document.getElementById('quiz-collapse').onclick=()=>list.querySelectorAll('details').forEach(d=>d.open=false);
+  filt.children[0].classList.add('on');render();
+})();
+
+/*JS_MARKER*/
+
+(function(){
+  const links=[...document.querySelectorAll('#nav a')];const secs=links.map(l=>document.querySelector(l.getAttribute('href')));
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id));}});},{rootMargin:'-10% 0px -80% 0px'});
+  secs.forEach(s=>s&&obs.observe(s));
+})();
+
+/* Shell: menú móvil + barra de progreso */
+(function(){
+  const main=document.getElementById('main');
+  const pt=document.getElementById('progressTop');
+  const menuBtn=document.getElementById('menuBtn');
+  const sidebar=document.getElementById('sidebar');
+  const backdrop=document.getElementById('backdrop');
+  function closeMenu(){sidebar.classList.remove('open');backdrop.classList.remove('show');menuBtn.setAttribute('aria-expanded','false');}
+  if(menuBtn){
+    menuBtn.addEventListener('click',()=>{const open=sidebar.classList.toggle('open');backdrop.classList.toggle('show');menuBtn.setAttribute('aria-expanded',open?'true':'false');});
+    backdrop.addEventListener('click',closeMenu);
+    document.querySelectorAll('#nav a').forEach(a=>a.addEventListener('click',closeMenu));
+  }
+  if(main&&pt){
+    main.addEventListener('scroll',()=>{const s=main.scrollTop/((main.scrollHeight-main.clientHeight)||1);pt.style.width=Math.min(100,s*100)+'%';});
+  }
+})();
+</script>
+</body>
+</html>
